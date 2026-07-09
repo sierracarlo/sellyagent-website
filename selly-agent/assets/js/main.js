@@ -29,6 +29,8 @@ const featureImage = document.querySelector("[data-feature-image]");
 const video = document.getElementById("promoVideo");
 const muteToggle = document.getElementById("muteToggle");
 const faqList = document.getElementById("faqList");
+const navMenu = document.getElementById("navMenu");
+const menuToggle = document.getElementById("menuToggle");
 
 // 3. Cinematic smooth scrolling (Lenis)
 let lenis = null;
@@ -156,7 +158,36 @@ function handleMuteToggle() {
   muteToggle.setAttribute("aria-label", video.muted ? "Unmute video" : "Mute video");
 }
 
-// 9. FAQ accordion
+// 9. Nav menu overlay — plus toggles it, Escape closes, links close
+//    then scroll to their section (feature links also activate their tab).
+function setMenuOpen(open) {
+  navMenu.classList.toggle("is-open", open);
+  navMenu.setAttribute("aria-hidden", String(!open));
+  menuToggle.setAttribute("aria-expanded", String(open));
+  menuToggle.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+  header.classList.toggle("is-menu-open", open);
+  document.body.style.overflow = open ? "hidden" : "";
+  if (lenis) open ? lenis.stop() : lenis.start();
+}
+
+function handleMenuLinkClick(event) {
+  const link = event.target.closest(".nav-menu__link");
+  if (!link) return;
+  event.preventDefault();
+  setMenuOpen(false);
+  const featureKey = link.dataset.featureLink;
+  if (featureKey) {
+    activateFeature(featuresPanel.querySelector(`[data-feature="${featureKey}"]`));
+  }
+  const target = document.querySelector(link.getAttribute("href"));
+  if (lenis) {
+    lenis.scrollTo(target, { offset: -40 });
+  } else {
+    target.scrollIntoView({ behavior: "smooth" });
+  }
+}
+
+// 10. FAQ accordion
 function handleFaqClick(event) {
   const toggle = event.target.closest(".faq-item__toggle");
   if (!toggle) return;
@@ -167,7 +198,7 @@ function handleFaqClick(event) {
   toggle.setAttribute("aria-expanded", String(!isOpen));
 }
 
-// 10. Scroll reveals
+// 11. Scroll reveals
 function initReveals() {
   if (prefersReducedMotion) return;
   const observer = new IntersectionObserver(
@@ -184,7 +215,7 @@ function initReveals() {
   document.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
 }
 
-// 11. Initialization
+// 12. Initialization
 function init() {
   initSmoothScroll();
   initReveals();
@@ -197,6 +228,11 @@ function init() {
   featuresPanel.addEventListener("click", handleFeatureClick);
   muteToggle.addEventListener("click", handleMuteToggle);
   faqList.addEventListener("click", handleFaqClick);
+  menuToggle.addEventListener("click", () => setMenuOpen(!navMenu.classList.contains("is-open")));
+  navMenu.addEventListener("click", handleMenuLinkClick);
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && navMenu.classList.contains("is-open")) setMenuOpen(false);
+  });
 }
 
 init();

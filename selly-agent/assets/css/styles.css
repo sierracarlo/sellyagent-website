@@ -150,6 +150,70 @@ h2 {
   transform: rotate(90deg);
 }
 
+.site-header__menu[aria-expanded="true"] svg {
+  transform: rotate(45deg); /* plus becomes a close */
+}
+
+/* While the menu is open the header sits over the dark overlay,
+   so it's always white regardless of scroll position. */
+.site-header.is-menu-open {
+  color: #fff;
+}
+
+/* ============================================
+   SECTIONS — Nav menu overlay
+   ============================================ */
+.nav-menu {
+  position: fixed;
+  inset: 0;
+  z-index: 9;
+  background: rgba(1, 7, 20, 0.6);
+  -webkit-backdrop-filter: blur(6.8px);
+  backdrop-filter: blur(6.8px);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 500ms var(--ease-out), visibility 0s linear 500ms;
+}
+
+.nav-menu.is-open {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 500ms var(--ease-out);
+}
+
+.nav-menu__links {
+  list-style: none;
+  margin: 0;
+  padding: 328px 0 0 48px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.nav-menu__link {
+  display: inline-block;
+  font-size: clamp(2rem, 3.3vw, 3rem); /* 48px */
+  line-height: 1.1;
+  color: #fff;
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 500ms var(--ease-out), transform 500ms var(--ease-out);
+}
+
+.nav-menu.is-open .nav-menu__link {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.nav-menu.is-open li:nth-child(1) .nav-menu__link { transition-delay: 60ms; }
+.nav-menu.is-open li:nth-child(2) .nav-menu__link { transition-delay: 130ms; }
+.nav-menu.is-open li:nth-child(3) .nav-menu__link { transition-delay: 200ms; }
+.nav-menu.is-open li:nth-child(4) .nav-menu__link { transition-delay: 270ms; }
+
+.nav-menu__link:hover {
+  opacity: 0.7;
+}
+
 /* ============================================
    SECTIONS — Hero
    ============================================ */
@@ -743,6 +807,10 @@ h2 {
     flex-direction: column;
     text-align: center;
     gap: 20px;
+  }
+
+  .nav-menu__links {
+    padding: 180px 0 0 var(--space-edge);
   }
 
   .cta {
