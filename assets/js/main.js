@@ -172,7 +172,11 @@ function setMenuOpen(open) {
 
 function handleMenuLinkClick(event) {
   const link = event.target.closest(".nav-menu__link");
-  if (!link) return;
+  if (!link) {
+    // Click landed on the empty overlay area — just close.
+    setMenuOpen(false);
+    return;
+  }
   event.preventDefault();
   setMenuOpen(false);
   const featureKey = link.dataset.featureLink;
