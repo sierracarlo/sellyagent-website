@@ -246,7 +246,7 @@ h2 {
 .hero__image {
   position: absolute;
   z-index: 2;
-  top: 29px;
+  top: 41px; /* 29px design position + 12px extra gap below the hero text */
   left: 50%;
   translate: -50% 0;
   /* Fixed at the design size and centered — wide screens don't scale it,
