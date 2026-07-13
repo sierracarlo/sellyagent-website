@@ -464,9 +464,32 @@ h2 {
   display: none;
 }
 
+.feature__link {
+  display: none;
+  align-items: center;
+  gap: 8px;
+  width: fit-content;
+  margin-top: 20px;
+  font-size: var(--text-base);
+  font-weight: 600;
+}
+
+.feature__link-arrow {
+  transition: transform var(--duration-fast) var(--ease-out);
+}
+
+.feature__link:hover .feature__link-arrow {
+  transform: translateX(4px);
+}
+
 .feature.is-active .feature__desc {
   display: block;
   animation: fade-slide-in 400ms var(--ease-out);
+}
+
+.feature.is-active .feature__link {
+  display: inline-flex;
+  animation: fade-slide-in 400ms var(--ease-out) 80ms backwards;
 }
 
 .features__media {
