@@ -17,3 +17,5 @@ Static HTML/CSS/JS — open `index.html` in a browser. No build step.
 The SellyAgent logo (`Selly-Logo.svg`) is inlined in `index.html` (header + footer) with `fill="currentColor"` so the nav color flip works automatically.
 
 Note: audible autoplay is blocked by most browsers until the user interacts with the page — the video falls back to muted autoplay and the corner button unmutes at 50% volume.
+
+The contact form (`contact.html`) validates client-side and shows a success message only — wire the real submission (Formspree, Cloudflare Worker, etc.) inside `handleContactSubmit` in `assets/js/main.js`.
