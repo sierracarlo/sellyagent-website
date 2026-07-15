@@ -888,7 +888,13 @@ h2 {
   margin: 40px auto 0;
 }
 
+.contact-hero__head {
+  will-change: transform;
+}
+
 .contact-form {
+  position: relative; /* rides above the drifting hero text, like the home hero image */
+  z-index: 1;
   display: flex;
   flex-direction: column;
   gap: 16px;
@@ -1019,7 +1025,13 @@ h2 {
 }
 
 /* Auto-scrolling, draggable template strip */
+.social-hero__head {
+  will-change: transform;
+}
+
 .post-strip {
+  position: relative; /* rides above the drifting hero text, like the home hero image */
+  z-index: 1;
   margin-top: 96px;
   padding-bottom: 24px; /* room for the card drop shadow */
   overflow: hidden;
@@ -1564,9 +1576,27 @@ h2 {
   outline: 2px dashed #4b5bf7;
 }
 
-.editor-el--heading { font-size: 26px; font-weight: 700; }
-.editor-el--subheading { font-size: 18px; font-weight: 600; }
-.editor-el--body { font-size: 13px; }
+.editor-el--heading {
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 44px;
+  font-weight: 500;
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+}
+
+.editor-el--subheading { font-size: 15px; font-weight: 600; }
+.editor-el--body { font-size: 12px; }
+
+/* Fixed background photo — part of the base design, not editable */
+.editor-el--photo {
+  position: absolute;
+  left: 0;
+  top: 37.8%;
+  width: 100%;
+  height: 54.8%;
+  object-fit: cover;
+  pointer-events: none;
+}
 
 .editor-el--rect { width: 120px; height: 90px; border-radius: 4px; }
 .editor-el--circle { width: 100px; height: 100px; border-radius: 50%; }

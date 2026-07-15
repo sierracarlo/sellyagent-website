@@ -51,9 +51,10 @@ function initSmoothScroll() {
 //    so the house image slides up and covers it.
 function updateHeroParallax() {
   const scrolled = window.scrollY;
-  if (scrolled > hero.offsetHeight) return;
+  const bound = hero ? hero.offsetHeight : navFlipSection ? navFlipSection.offsetHeight : 0;
+  if (scrolled > bound) return;
   heroText.style.transform = `translateY(${scrolled * 0.45}px)`;
-  heroImage.style.transform = `translateY(${scrolled * -0.18}px)`;
+  if (heroImage) heroImage.style.transform = `translateY(${scrolled * -0.18}px)`;
 }
 
 // 5. Adaptive nav color — flips to ink once the header scrolls past
@@ -67,7 +68,7 @@ function updateHeaderColor() {
 }
 
 function onScroll() {
-  if (hero && !prefersReducedMotion) updateHeroParallax();
+  if (heroText && !prefersReducedMotion) updateHeroParallax();
   updateHeaderColor();
 }
 

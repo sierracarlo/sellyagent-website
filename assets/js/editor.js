@@ -24,9 +24,9 @@
   let idCounter = 0;
 
   const TEXT_PRESETS = {
-    heading: { label: "Heading", text: "Just Listed", className: "editor-el--heading" },
-    subheading: { label: "Subheading", text: "124 Pine Street", className: "editor-el--subheading" },
-    body: { label: "Body text", text: "Open house this Saturday, 10 AM – 1 PM.", className: "editor-el--body" },
+    heading: { label: "Heading", text: "Under\nContract", className: "editor-el--heading" },
+    subheading: { label: "Subheading", text: "3 Bedrooms | 2 Bathrooms | 1,850 Sq Ft", className: "editor-el--subheading" },
+    body: { label: "Body text", text: "SellyAgent", className: "editor-el--body" },
   };
   const SHAPE_LABELS = { rect: "Rectangle", circle: "Circle", pill: "Pill", line: "Line" };
 
@@ -76,20 +76,23 @@
     const id = ++idCounter;
     node.classList.add("editor-el");
     node.dataset.editorId = id;
-    // stagger initial placement so stacked adds stay visible
-    node.style.left = 24 + (elements.length % 5) * 18 + "px";
-    node.style.top = 24 + (elements.length % 5) * 18 + "px";
+    if (!node.style.left) {
+      // stagger initial placement so stacked adds stay visible
+      node.style.left = 24 + (elements.length % 5) * 18 + "px";
+      node.style.top = 24 + (elements.length % 5) * 18 + "px";
+    }
     page.appendChild(node);
     elements.push({ id, node, label });
     makeDraggable(node, id);
     select(id);
   }
 
-  function addText(kind) {
+  function addText(kind, options = {}) {
     const preset = TEXT_PRESETS[kind];
     const node = document.createElement("div");
     node.className = `editor-el--text ${preset.className}`;
-    node.textContent = preset.text;
+    node.textContent = options.text ?? preset.text;
+    if (options.position) Object.assign(node.style, options.position);
     node.addEventListener("dblclick", () => {
       node.contentEditable = "true";
       node.focus();
@@ -199,8 +202,22 @@
     }
   });
 
-  // 10. Seed content so the canvas isn't empty on load
-  addShape("pill");
-  addText("heading");
+  // 10. Seed the base design ("Under Contract" post).
+  //     The photo is part of the layout — fixed, not selectable or movable.
+  function seedBaseDesign() {
+    const photo = document.createElement("img");
+    photo.className = "editor-el--photo";
+    photo.src = "assets/images/editor-photo.png";
+    photo.alt = "";
+    photo.draggable = false;
+    page.appendChild(photo);
+
+    addText("heading", { position: { left: "5.5%", top: "6%" } });
+    addText("subheading", { position: { left: "5.5%", top: "29.5%" } });
+    addText("body", { text: "SellyAgent", position: { left: "4%", top: "94%" } });
+    addText("body", { text: "2026", position: { left: "88%", top: "94%" } });
+  }
+
+  seedBaseDesign();
   select(null);
 })();
