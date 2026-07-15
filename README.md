@@ -12,6 +12,7 @@ Static HTML/CSS/JS — open `index.html` in a browser. No build step.
 | `assets/images/feature-websites.jpg` / `feature-social.jpg` / `feature-email.jpg` / `feature-trestle.jpg` | Feature-linked images | ~560×398 (supply 2×) |
 | `assets/images/cta-house.jpg` | Bottom CTA cliffside house | 1440×823 |
 | `assets/images/logo-1.png` … `logo-7.png` | Partner/brokerage logos | Varying — see current files |
+| `assets/images/social-1.png` … `social-10.png` | Social post templates (social-media.html strip) | 275×344 (supplied at 2× = 550×688) |
 | `assets/video/product-demo.mp4` | Product demo video | 1144×700, H.264 + AAC |
 
 The SellyAgent logo (`Selly-Logo.svg`) is inlined in `index.html` (header + footer) with `fill="currentColor"` so the nav color flip works automatically.

@@ -214,7 +214,61 @@ function handleContactSubmit(event) {
   contactForm.reset();
 }
 
-// 11. FAQ accordion
+// 11. Template strip (social page) — auto-scrolls forever; dragging
+//     scrubs it directly and auto-scroll resumes on release.
+function initTemplateStrip(strip) {
+  const track = strip.querySelector(".post-strip__track");
+  track.innerHTML += track.innerHTML; // duplicate set for a seamless loop
+  const clones = track.children.length / 2;
+  for (let i = clones; i < track.children.length; i++) {
+    track.children[i].setAttribute("aria-hidden", "true");
+    track.children[i].alt = "";
+  }
+
+  const SPEED = 30; // px per second
+  let offset = 0;
+  let setWidth = 0;
+  let dragging = false;
+  let lastPointerX = 0;
+  let lastTime = performance.now();
+
+  const measure = () => {
+    setWidth = track.scrollWidth / 2;
+  };
+  measure();
+  window.addEventListener("resize", measure);
+
+  function frame(now) {
+    const dt = (now - lastTime) / 1000;
+    lastTime = now;
+    if (!dragging && !prefersReducedMotion) offset -= SPEED * dt;
+    // keep offset within (-setWidth, 0] so the loop never shows a gap
+    offset = -(((-offset % setWidth) + setWidth) % setWidth);
+    track.style.transform = `translateX(${offset}px)`;
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+
+  strip.addEventListener("pointerdown", (event) => {
+    dragging = true;
+    lastPointerX = event.clientX;
+    strip.classList.add("is-dragging");
+    strip.setPointerCapture(event.pointerId);
+  });
+  strip.addEventListener("pointermove", (event) => {
+    if (!dragging) return;
+    offset += event.clientX - lastPointerX;
+    lastPointerX = event.clientX;
+  });
+  const release = () => {
+    dragging = false;
+    strip.classList.remove("is-dragging");
+  };
+  strip.addEventListener("pointerup", release);
+  strip.addEventListener("pointercancel", release);
+}
+
+// 12. FAQ accordion
 function handleFaqClick(event) {
   const toggle = event.target.closest(".faq-item__toggle");
   if (!toggle) return;
@@ -225,7 +279,7 @@ function handleFaqClick(event) {
   toggle.setAttribute("aria-expanded", String(!isOpen));
 }
 
-// 12. Scroll reveals
+// 13. Scroll reveals
 function initReveals() {
   if (prefersReducedMotion) return;
   const observer = new IntersectionObserver(
@@ -242,7 +296,7 @@ function initReveals() {
   document.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
 }
 
-// 13. Initialization
+// 14. Initialization
 function init() {
   initSmoothScroll();
   initReveals();
@@ -261,6 +315,9 @@ function init() {
   if (featuresPanel) featuresPanel.addEventListener("click", handleFeatureClick);
   if (faqList) faqList.addEventListener("click", handleFaqClick);
   if (contactForm) contactForm.addEventListener("submit", handleContactSubmit);
+
+  const templateStrip = document.querySelector("[data-template-strip]");
+  if (templateStrip) initTemplateStrip(templateStrip);
 
   if (menuToggle && navMenu) {
     menuToggle.addEventListener("click", () => setMenuOpen(!navMenu.classList.contains("is-open")));
