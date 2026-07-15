@@ -226,6 +226,8 @@ h2 {
 .nav-menu.is-open li:nth-child(2) .nav-menu__link { transition-delay: 130ms; }
 .nav-menu.is-open li:nth-child(3) .nav-menu__link { transition-delay: 200ms; }
 .nav-menu.is-open li:nth-child(4) .nav-menu__link { transition-delay: 270ms; }
+.nav-menu.is-open li:nth-child(5) .nav-menu__link { transition-delay: 340ms; }
+.nav-menu.is-open li:nth-child(6) .nav-menu__link { transition-delay: 410ms; }
 
 .nav-menu__link:hover {
   opacity: 0.7;
