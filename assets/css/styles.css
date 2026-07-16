@@ -136,6 +136,47 @@ h2 {
   color: var(--color-ink);
 }
 
+/* Progressive blur backdrop — appears once the header flips over the
+   white sections (.is-dark). Two stacked blur layers, each masked so
+   the effect dissolves toward the bottom edge: no background color,
+   no border, no box — the page content just softly diffuses away
+   behind the nav. */
+.site-header::before,
+.site-header::after {
+  content: "";
+  position: absolute;
+  inset: 0 0 -32px 0; /* extend past the header so the fade-out breathes */
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 400ms var(--ease-out);
+}
+
+.site-header::before {
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
+  -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 35%, transparent 78%);
+  mask-image: linear-gradient(to bottom, #000 0%, #000 35%, transparent 78%);
+}
+
+.site-header::after {
+  -webkit-backdrop-filter: blur(5px);
+  backdrop-filter: blur(5px);
+  -webkit-mask-image: linear-gradient(to bottom, #000 30%, transparent 100%);
+  mask-image: linear-gradient(to bottom, #000 30%, transparent 100%);
+}
+
+.site-header.is-dark::before,
+.site-header.is-dark::after {
+  opacity: 1;
+}
+
+/* The menu overlay supplies its own blur — hide the header's. */
+.site-header.is-menu-open::before,
+.site-header.is-menu-open::after {
+  opacity: 0;
+}
+
 .site-header__actions {
   display: flex;
   align-items: center;
