@@ -2090,6 +2090,18 @@ h2 {
   color: var(--color-ink);
 }
 
+/* Mobile drag layer — sits over each frame and relays vertical drags
+   into the framed page (see initTemplateShowcase), so templates scrub
+   by touch without trapping the page scroll. Desktop uses live wheel
+   scrolling instead. */
+.tpl__touch {
+  display: none;
+  position: absolute;
+  inset: 0;
+  touch-action: none;
+  cursor: grab;
+}
+
 @media (max-width: 900px) {
   /* Stacked: every card renders the mobile viewport at full width;
      the expand interaction is a desktop-scale demo only. */
@@ -2105,6 +2117,10 @@ h2 {
 
   .tpl__expand {
     display: none;
+  }
+
+  .tpl__touch {
+    display: block;
   }
 }
 

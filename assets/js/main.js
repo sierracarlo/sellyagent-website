@@ -314,6 +314,43 @@ function initTemplateShowcase(stage) {
   units.forEach((unit) => {
     const expandButton = unit.querySelector(".tpl__expand");
     expandButton.addEventListener("click", () => expand(unit));
+
+    // Mobile drag layer: vertical drags scroll the framed page. Drags are
+    // relayed via postMessage; scaled frames scroll 1:1 with the finger
+    // (delta divided by the frame's scale). See the embed guard inside
+    // the template pages for the receiving half.
+    const touchLayer = unit.querySelector(".tpl__touch");
+    const frame = unit.querySelector(".tpl__frame");
+    let lastY = null;
+
+    touchLayer.addEventListener("pointerdown", (event) => {
+      lastY = event.clientY;
+      touchLayer.setPointerCapture(event.pointerId);
+    });
+    touchLayer.addEventListener("pointermove", (event) => {
+      if (lastY === null) return;
+      const scale = frame.getBoundingClientRect().width / frame.offsetWidth;
+      const dy = (lastY - event.clientY) / (scale || 1);
+      lastY = event.clientY;
+      frame.contentWindow.postMessage({ type: "sellyagent:scroll", dy }, "*");
+    });
+    const endDrag = () => { lastY = null; };
+    touchLayer.addEventListener("pointerup", endDrag);
+    touchLayer.addEventListener("pointercancel", endDrag);
+  });
+
+  // The framed page bounces the delta back when it hits its top or
+  // bottom, so the drag hands off to the page scroll instead of trapping.
+  window.addEventListener("message", (event) => {
+    const data = event.data;
+    if (!data || data.type !== "sellyagent:edge") return;
+    const unit = units.find(
+      (u) => u.querySelector(".tpl__frame").contentWindow === event.source
+    );
+    if (!unit) return;
+    const frame = unit.querySelector(".tpl__frame");
+    const scale = frame.getBoundingClientRect().width / frame.offsetWidth || 1;
+    window.scrollBy(0, data.dy * scale);
   });
 
   window.addEventListener("resize", fitFrames);

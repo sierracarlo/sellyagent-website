@@ -730,3 +730,12 @@ body.menu-open { overflow: hidden; }
 .is-embedded button {
   cursor: default;
 }
+
+/* Hide the scrollbar in the showcase frames — scrolling still works. */
+.is-embedded {
+  scrollbar-width: none;
+}
+.is-embedded::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}

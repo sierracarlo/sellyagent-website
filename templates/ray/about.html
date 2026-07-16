@@ -222,6 +222,18 @@
           event.stopPropagation();
         }, true);
       });
+      // Drag-to-scroll relay: the showcase overlay sends drag deltas from
+      // the parent page; when this page can't scroll further, the delta is
+      // bounced back so the parent page keeps scrolling instead.
+      window.addEventListener('message', function (event) {
+        var data = event.data;
+        if (!data || data.type !== 'sellyagent:scroll') return;
+        var before = window.scrollY;
+        window.scrollBy(0, data.dy);
+        if (window.scrollY === before && event.source) {
+          event.source.postMessage({ type: 'sellyagent:edge', dy: data.dy }, '*');
+        }
+      });
     }
   </script>
 </body>
