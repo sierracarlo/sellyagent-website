@@ -1724,6 +1724,224 @@ h2 {
 }
 
 /* ============================================
+   SECTIONS — Email Campaigns page
+   ============================================ */
+.email-hero {
+  /* Design's 810px gradient; pixel stops keep the fade fixed while the
+     template cards below straddle onto white, like the mockup. */
+  background: linear-gradient(180deg, #c1ddee 0, #e0eff8 551px, #ffffff 790px);
+  padding: 227px 0 0;
+  text-align: center;
+  overflow: hidden;
+}
+
+.email-hero__title {
+  font-size: var(--text-display);
+  max-width: 823px;
+  margin: 0 auto;
+  padding: 0 var(--space-edge);
+}
+
+.email-hero__copy {
+  font-size: var(--text-lead);
+  line-height: 1.6;
+  color: var(--color-ink-50);
+  max-width: 706px;
+  margin: 24px auto 0;
+  padding: 0 var(--space-edge);
+}
+
+.email-hero .btn {
+  margin-top: 40px;
+}
+
+.email-hero__head {
+  will-change: transform;
+}
+
+.email-hero__cards {
+  position: relative; /* rides above the drifting hero text */
+  z-index: 1;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  width: var(--container);
+  margin: 117px auto 0;
+  padding-bottom: 24px; /* room for the card shadows */
+}
+
+.email-hero__cards img {
+  width: 100%;
+  aspect-ratio: 271 / 410;
+  object-fit: cover;
+  border-radius: var(--radius);
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1), 0 5px 16px rgba(0, 0, 0, 0.05);
+}
+
+/* --- Audiences --- */
+.audiences {
+  padding-top: var(--space-section);
+}
+
+.audiences__panel {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: clamp(32px, 5vw, 80px);
+  width: var(--container);
+  margin-inline: auto;
+}
+
+.audiences__title {
+  font-size: clamp(1.75rem, 3.3vw, 3rem); /* 48px */
+  line-height: 1.2;
+  max-width: 678px;
+}
+
+.audiences__copy {
+  font-size: var(--text-lead);
+  line-height: 1.6;
+  color: var(--color-ink-50);
+  max-width: 599px;
+  margin-top: 24px;
+}
+
+.audiences__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+.audiences__tag {
+  display: inline-flex;
+  padding: 12px 32px;
+  background: var(--color-ink);
+  color: #fff;
+  font-size: var(--text-lead);
+  line-height: 1.6;
+  border-radius: 8px;
+  white-space: nowrap;
+}
+
+/* --- Email feature grid --- */
+.email-features {
+  padding-top: var(--space-section);
+  text-align: center;
+}
+
+.email-features__title {
+  font-size: var(--text-display);
+  max-width: 777px;
+  margin: 0 auto;
+  padding: 0 var(--space-edge);
+}
+
+.email-features__copy {
+  font-size: var(--text-lead);
+  line-height: 1.6;
+  color: var(--color-ink-50);
+  max-width: 548px;
+  margin: 16px auto 0;
+  padding: 0 var(--space-edge);
+}
+
+.email-features__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  width: var(--container);
+  margin: 88px auto 0;
+  text-align: left;
+}
+
+.email-feature {
+  min-height: 210px;
+  padding: 33px;
+  background: #fff;
+  border: 1px solid rgba(17, 24, 39, 0.05);
+  border-radius: var(--radius);
+  box-shadow: 10px 15px 25px rgba(17, 24, 39, 0.1), 0 8px 5px rgba(17, 24, 39, 0.02);
+}
+
+.email-feature__icon {
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  background: rgba(17, 24, 39, 0.05);
+  color: var(--color-ink);
+}
+
+.email-feature__name {
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 24px;
+  margin-top: 24px;
+}
+
+.email-feature__desc {
+  font-size: 0.875rem;
+  line-height: 20px;
+  color: var(--color-ink-50);
+  margin-top: 8px;
+}
+
+/* --- Posts-card status badges (scheduling section) --- */
+.posts-card__badge {
+  align-self: center;
+  margin-left: auto;
+  padding: 4px 12px;
+  border-radius: 100px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  line-height: 16px;
+  white-space: nowrap;
+}
+
+.posts-card__badge--active {
+  background: #dcfce7;
+  color: #008236;
+}
+
+.posts-card__badge--scheduled {
+  background: #fef3c6;
+  color: #bb4d00;
+}
+
+.posts-card__dot--amber {
+  background: #ffd425;
+}
+
+@media (max-width: 1024px) {
+  .audiences__panel {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .email-hero__cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 900px) {
+  .email-features__grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .email-hero {
+    padding-top: 160px;
+  }
+
+  .email-hero__cards {
+    margin-top: 72px;
+  }
+}
+
+/* ============================================
    ANIMATIONS
    ============================================ */
 .reveal {
