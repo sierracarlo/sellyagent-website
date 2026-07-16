@@ -269,7 +269,58 @@ function initTemplateStrip(strip) {
   strip.addEventListener("pointercancel", release);
 }
 
-// 12. FAQ accordion
+// 12. Template showcase (websites page) — three live template pages in
+//     iframes. One shows the desktop viewport; the others show mobile.
+//     Clicking a mobile card expands it to desktop and collapses the
+//     current one; a veil covers each iframe while its viewport swaps.
+function initTemplateShowcase(stage) {
+  const DESKTOP_VIEWPORT = 1440;
+  const MOBILE_VIEWPORT = 390;
+  const SWITCH_MS = 650; // matches the .tpl flex-basis transition
+  const units = Array.from(stage.querySelectorAll(".tpl"));
+  const stacked = () => window.matchMedia("(max-width: 900px)").matches;
+
+  // Scale each iframe so its viewport fills the card at the card's
+  // current width (mobile cards show a real 390px layout, desktop 1440px).
+  function fitFrames() {
+    units.forEach((unit) => {
+      const frame = unit.querySelector(".tpl__frame");
+      const cardWidth = unit.querySelector(".tpl__card").clientWidth;
+      const viewport = stacked() || unit.classList.contains("is-desktop")
+        ? DESKTOP_VIEWPORT
+        : MOBILE_VIEWPORT;
+      const scale = cardWidth / viewport;
+      frame.style.width = `${viewport}px`;
+      frame.style.height = `${Math.ceil(458 / scale)}px`;
+      frame.style.transform = `scale(${scale})`;
+    });
+  }
+
+  function expand(unit) {
+    if (unit.classList.contains("is-desktop") || stacked()) return;
+    units.forEach((u) => u.classList.add("is-switching"));
+    units.forEach((u) => u.classList.toggle("is-desktop", u === unit));
+    // Swap viewports behind the veil, keep re-fitting while the widths
+    // tween, then lift the veil once the cards settle.
+    fitFrames();
+    const follow = setInterval(fitFrames, 80);
+    setTimeout(() => {
+      clearInterval(follow);
+      fitFrames();
+      units.forEach((u) => u.classList.remove("is-switching"));
+    }, SWITCH_MS);
+  }
+
+  units.forEach((unit) => {
+    const expandButton = unit.querySelector(".tpl__expand");
+    expandButton.addEventListener("click", () => expand(unit));
+  });
+
+  window.addEventListener("resize", fitFrames);
+  fitFrames();
+}
+
+// 13. FAQ accordion
 function handleFaqClick(event) {
   const toggle = event.target.closest(".faq-item__toggle");
   if (!toggle) return;
@@ -280,7 +331,7 @@ function handleFaqClick(event) {
   toggle.setAttribute("aria-expanded", String(!isOpen));
 }
 
-// 13. Scroll reveals
+// 14. Scroll reveals
 function initReveals() {
   if (prefersReducedMotion) return;
   const observer = new IntersectionObserver(
@@ -297,7 +348,7 @@ function initReveals() {
   document.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
 }
 
-// 14. Initialization
+// 15. Initialization
 function init() {
   initSmoothScroll();
   initReveals();
@@ -319,6 +370,9 @@ function init() {
 
   const templateStrip = document.querySelector("[data-template-strip]");
   if (templateStrip) initTemplateStrip(templateStrip);
+
+  const showcaseStage = document.querySelector("[data-showcase]");
+  if (showcaseStage) initTemplateShowcase(showcaseStage);
 
   if (menuToggle && navMenu) {
     menuToggle.addEventListener("click", () => setMenuOpen(!navMenu.classList.contains("is-open")));

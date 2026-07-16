@@ -1,0 +1,43 @@
+/* ==========================================================================
+   properties.css — styles unique to the properties page (properties.html)
+   Depends on base.css for tokens, buttons, navs, footer internals, animations,
+   the dark-hero layout, property cards, and the property accordion (§9).
+   ========================================================================== */
+
+:root {
+  --gutter: 148px;   /* matches the interior-page gutter (about) */
+}
+
+/* Hero — generic wrappers are page-scoped because `.hero` / `.hero__nav`
+   mean different things on the home page. The dark-hero internals
+   (.hero-row, .img-row, etc.) are shared and live in base.css §9. */
+/* White body below the straddling hero images. */
+.body-wrap {
+  position: relative;
+  padding-top: 100px;
+  background: var(--white);
+}
+
+/* Eyebrow spacing above section titles (home scopes this the same way). */
+.eyebrow {
+  margin-bottom: 12px;
+  text-transform: uppercase;
+}
+
+/* Footer box model (properties): full-bleed minus the 32px page frame. */
+.footer {
+  width: calc(100vw - var(--sbw, 0px) - 2 * var(--frame));
+  margin: 100px calc(50% - (100vw - var(--sbw, 0px)) / 2 + var(--frame)) var(--frame);
+}
+
+/* Responsive ------------------------------------------------------------- */
+@media (max-width: 1024px) {
+  :root { --gutter: 64px; }
+  .hero-row { flex-direction: column; align-items: flex-start; gap: 32px; }
+  .hero-left { width: 100%; }
+}
+
+@media (max-width: 640px) {
+  :root { --gutter: 32px; }
+  .footer { margin-top: 72px; }
+}

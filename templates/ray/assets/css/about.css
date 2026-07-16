@@ -1,0 +1,191 @@
+/* ==========================================================================
+   about.css — styles unique to the about page (about.html)
+   Depends on base.css for tokens, buttons, navs, footer internals, animations.
+   ========================================================================== */
+
+:root {
+  --gutter: 148px;
+}
+
+.title-xl {
+  font-size: 48px;
+  font-weight: 400;
+  line-height: normal;
+  color: #000;
+}
+
+/* Hero — the framed dark card (.hero--framed), its nav, text row, and
+   straddling images all live in base.css §9 (shared with properties). */
+
+/* Body ------------------------------------------------------------------- */
+.body-wrap {
+  position: relative;
+  padding-top: 100px;
+  background: var(--white);
+}
+
+/* Story ------------------------------------------------------------------ */
+.story {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+.story__head {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.story__cols {
+  display: flex;
+  align-items: flex-start;
+  gap: 116px;
+  font-size: 16px;
+}
+
+.story__lead {
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  gap: 40px;
+  width: 464px;
+  color: #000;
+}
+
+.story__lead ul { padding-left: 24px; }
+.story__lead li { list-style: disc; line-height: 1.6; }
+
+.story__portrait {
+  width: 333px;
+  max-width: 100%;
+  height: 429px;
+  border-radius: var(--radius-card);
+  object-fit: cover;
+}
+
+.story__body {
+  flex: 1;
+  min-width: 0;
+  line-height: 1.6;
+  color: var(--mid);
+}
+
+.story__body p + p { margin-top: 1.6em; }
+
+/* Mid banner ------------------------------------------------------------- */
+.banner-mid {
+  width: calc(100vw - var(--sbw, 0px) - 2 * var(--frame));
+  height: 439px;
+  margin: 100px 0 0 calc(50% - (100vw - var(--sbw, 0px)) / 2 + var(--frame));
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.banner-mid img {
+  width: 100%;
+  height: 120%;
+  object-fit: cover;
+  will-change: transform;
+}
+
+/* Purpose ---------------------------------------------------------------- */
+.purpose {
+  display: flex;
+  align-items: flex-start;
+  gap: 116px;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 144px var(--gutter) 0;
+}
+
+.purpose__head {
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  gap: 12px;
+  width: 464px;
+}
+
+.purpose__list {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  width: 564px;
+}
+
+.purpose__item {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 24px;
+  width: 100%;
+}
+
+.purpose__line {
+  width: 100%;
+  height: 1px;
+  background: #d9d9d9;
+}
+
+.purpose__row {
+  display: flex;
+  align-items: flex-start;
+  gap: 22px;
+  width: 100%;
+}
+
+.purpose__num {
+  flex-shrink: 0;
+  width: 39px;
+  padding: 4px 0;
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--mid);
+}
+
+.purpose__content {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 503px;
+}
+
+.purpose__title { font-size: 22px; line-height: 1.6; color: #000; }
+.purpose__desc  { font-size: 16px; line-height: 1.6; color: var(--mid); }
+
+/* Footer box model (about) ----------------------------------------------- */
+.footer {
+  width: calc(100vw - var(--sbw, 0px) - 2 * var(--frame));
+  margin: 144px calc(50% - (100vw - var(--sbw, 0px)) / 2 + var(--frame)) var(--frame);
+}
+
+/* Responsive ------------------------------------------------------------- */
+@media (max-width: 1024px) {
+  :root { --gutter: 64px; }
+  .hero-row { flex-direction: column; align-items: flex-start; gap: 32px; }
+  .hero-left { width: 100%; }
+  .story__cols,
+  .purpose { flex-direction: column; gap: 40px; }
+  .story__lead,
+  .purpose__head,
+  .purpose__list { width: 100%; }
+  .purpose { padding-top: 96px; }
+}
+
+@media (max-width: 640px) {
+  :root { --gutter: 32px; }
+  .title-xl { font-size: 32px; }
+  .banner-mid { height: 280px; margin-top: 64px; }
+  .purpose { padding-top: 72px; }
+  .purpose__content { width: auto; }
+  .purpose__title { font-size: 20px; }
+  .footer { margin-top: 96px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .banner-mid img { transform: none !important; }
+}

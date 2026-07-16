@@ -1,0 +1,278 @@
+/* ==========================================================================
+   property.css — styles unique to the property detail page (property.html)
+   Depends on base.css for tokens, buttons, navs, footer internals, animations,
+   the framed dark hero (.hero--framed), and the shared accordion (§9).
+   ========================================================================== */
+
+:root {
+  --gutter: 148px;   /* matches the interior-page gutter */
+}
+
+/* Hero — title row and the full-width image at the card's base. The framed
+   card and its nav live in base.css §9. */
+.pd-hero-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 64px;
+  padding: 118px calc(max((100vw - var(--sbw, 0px) - 1440px) / 2, 0px) + var(--gutter) - var(--frame)) 0;
+}
+
+.pd-hero-title {
+  flex-shrink: 0;
+  width: 474px;
+  font-size: 56px;
+  font-weight: 500;
+  line-height: 1;
+  color: var(--white);
+}
+
+.pd-hero-tag {
+  display: flex;
+  flex-direction: column;
+  width: 445px;
+}
+
+.pd-hero-type {
+  font-size: 26px;
+  line-height: 1.6;
+  color: var(--white);
+}
+
+.pd-hero-desc {
+  padding-left: 16px;
+  font-size: 16px;
+  line-height: 1.6;
+  color: #939393;
+}
+
+.pd-hero-media {
+  width: 100%;
+  height: 497px;
+  margin-top: 53px;
+}
+
+.pd-hero-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Body ------------------------------------------------------------------- */
+.body-wrap {
+  position: relative;
+  padding-top: 120px;
+  background: var(--white);
+}
+
+/* Features --------------------------------------------------------------- */
+.pd-features {
+  padding: 0 var(--gutter);
+}
+
+.pd-features .eyebrow {
+  margin-bottom: 12px;
+  text-transform: uppercase;
+}
+
+.pd-features__cols {
+  display: flex;
+  gap: 16px;
+}
+
+.pd-features__col {
+  flex: 1;
+  min-width: 0;
+}
+
+.pd-h3 {
+  margin-bottom: 16px;
+  font-size: 26px;
+  font-weight: 400;
+  line-height: 1.6;
+  color: var(--black);
+}
+
+.pd-facts,
+.pd-overview {
+  max-width: 563px;
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--black);
+}
+
+/* Gallery carousel ---------------------------------------------------------
+   No visible arrows: the left and right halves are invisible buttons that
+   step the slides. Hovering a half fades in a dark gradient anchored to that
+   edge; both gradients animate on opacity, so sweeping the cursor across the
+   image crossfades them smoothly from one side to the other. */
+.pd-gallery {
+  padding: 120px var(--gutter) 0;
+}
+
+.pd-carousel {
+  position: relative;
+  width: 100%;
+  height: 505px;
+  border-radius: var(--radius-card);
+  overflow: hidden;
+}
+
+.pd-carousel__slide {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity .6s ease;
+}
+
+.pd-carousel__slide.is-active {
+  opacity: 1;
+}
+
+.pd-carousel__grad {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity .45s ease;
+  pointer-events: none;
+}
+
+.pd-carousel__grad--left {
+  background: linear-gradient(to right, rgba(25, 25, 25, .55) 0%, transparent 55%);
+}
+
+.pd-carousel__grad--right {
+  background: linear-gradient(to left, rgba(25, 25, 25, .55) 0%, transparent 55%);
+}
+
+.pd-carousel:has(.pd-carousel__zone--prev:hover) .pd-carousel__grad--left,
+.pd-carousel:has(.pd-carousel__zone--prev:focus-visible) .pd-carousel__grad--left,
+.pd-carousel:has(.pd-carousel__zone--next:hover) .pd-carousel__grad--right,
+.pd-carousel:has(.pd-carousel__zone--next:focus-visible) .pd-carousel__grad--right {
+  opacity: 1;
+}
+
+.pd-carousel__zone {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 50%;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.pd-carousel__zone--prev { left: 0; }
+.pd-carousel__zone--next { right: 0; }
+.pd-carousel__zone:focus { outline: none; }
+
+/* Pricing & details ------------------------------------------------------- */
+.pd-pricing {
+  padding: 96px var(--gutter) 0;
+}
+
+.pd-pricing .eyebrow {
+  margin-bottom: 12px;
+  text-transform: uppercase;
+}
+
+.pd-pricing__row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 64px;
+}
+
+.pd-price {
+  font-size: 48px;
+  font-weight: 500;
+  line-height: 1.6;
+  color: var(--black);
+}
+
+.pd-specs {
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  gap: 24px;
+  width: 564px;
+}
+
+.pd-spec .divider {
+  margin-bottom: 24px;
+}
+
+.pd-spec__row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.pd-spec__label {
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--mid);
+}
+
+.pd-spec__value {
+  font-size: 22px;
+  line-height: 1.6;
+  text-align: right;
+  color: var(--black);
+}
+
+/* Image pair --------------------------------------------------------------- */
+.pd-pair {
+  display: flex;
+  gap: 16px;
+  padding: 88px var(--gutter) 0;
+}
+
+.pd-pair img {
+  flex: 1;
+  min-width: 0;
+  height: 389px;
+  border-radius: var(--radius-card);
+  object-fit: cover;
+}
+
+/* "Our Other Projects" reuses the shared .more-props accordion (base §9). */
+
+/* Footer box model (property): full-bleed minus the 32px page frame. */
+.footer {
+  width: calc(100vw - var(--sbw, 0px) - 2 * var(--frame));
+  margin: 120px calc(50% - (100vw - var(--sbw, 0px)) / 2 + var(--frame)) var(--frame);
+}
+
+/* Responsive ------------------------------------------------------------- */
+@media (max-width: 1024px) {
+  :root { --gutter: 64px; }
+  .pd-hero-row { flex-direction: column; align-items: flex-start; gap: 32px; padding-top: 72px; }
+  .pd-hero-title,
+  .pd-hero-tag { width: 100%; }
+  .pd-hero-media { height: auto; aspect-ratio: 1376 / 497; margin-top: 40px; }
+  .pd-carousel { height: 400px; }
+  .pd-pricing__row { flex-direction: column; gap: 40px; }
+  .pd-pair img { height: 300px; }
+}
+
+@media (max-width: 640px) {
+  :root { --gutter: 32px; }
+  .pd-hero-title { font-size: 38px; }
+  .pd-hero-type { font-size: 22px; }
+  .pd-features__cols { flex-direction: column; gap: 40px; }
+  .pd-gallery { padding-top: 72px; }
+  .pd-carousel { height: auto; aspect-ratio: 4 / 3; }
+  .pd-pricing { padding-top: 64px; }
+  .pd-price { font-size: 36px; }
+  .pd-specs { width: 100%; }
+  .pd-spec__value { font-size: 18px; }
+  .pd-pair { flex-direction: column; padding-top: 64px; }
+  .pd-pair img { width: 100%; height: auto; aspect-ratio: 564 / 389; }
+  .footer { margin-top: 80px; }
+}

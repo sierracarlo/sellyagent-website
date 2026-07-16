@@ -1824,20 +1824,20 @@ h2 {
   white-space: nowrap;
 }
 
-/* --- Email feature grid --- */
-.email-features {
+/* --- Benefits grid (shared: email + websites pages) --- */
+.benefits {
   padding-top: var(--space-section);
   text-align: center;
 }
 
-.email-features__title {
+.benefits__title {
   font-size: var(--text-display);
   max-width: 777px;
   margin: 0 auto;
   padding: 0 var(--space-edge);
 }
 
-.email-features__copy {
+.benefits__copy {
   font-size: var(--text-lead);
   line-height: 1.6;
   color: var(--color-ink-50);
@@ -1846,7 +1846,7 @@ h2 {
   padding: 0 var(--space-edge);
 }
 
-.email-features__grid {
+.benefits__grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 24px;
@@ -1855,7 +1855,7 @@ h2 {
   text-align: left;
 }
 
-.email-feature {
+.benefit {
   min-height: 210px;
   padding: 33px;
   background: #fff;
@@ -1864,7 +1864,7 @@ h2 {
   box-shadow: 10px 15px 25px rgba(17, 24, 39, 0.1), 0 8px 5px rgba(17, 24, 39, 0.02);
 }
 
-.email-feature__icon {
+.benefit__icon {
   display: grid;
   place-items: center;
   width: 48px;
@@ -1874,14 +1874,14 @@ h2 {
   color: var(--color-ink);
 }
 
-.email-feature__name {
+.benefit__name {
   font-size: 1rem;
   font-weight: 600;
   line-height: 24px;
   margin-top: 24px;
 }
 
-.email-feature__desc {
+.benefit__desc {
   font-size: 0.875rem;
   line-height: 20px;
   color: var(--color-ink-50);
@@ -1926,7 +1926,7 @@ h2 {
 }
 
 @media (max-width: 900px) {
-  .email-features__grid {
+  .benefits__grid {
     grid-template-columns: 1fr;
   }
 }
@@ -1938,6 +1938,173 @@ h2 {
 
   .email-hero__cards {
     margin-top: 72px;
+  }
+}
+
+/* ============================================
+   SECTIONS — Professional Websites page
+   ============================================ */
+.website-hero {
+  background: linear-gradient(180deg, #c1ddee 0, #e0eff8 551px, #ffffff 790px);
+  padding: 227px 0 0;
+  text-align: center;
+  overflow: hidden;
+}
+
+.website-hero__title {
+  font-size: var(--text-display);
+  max-width: 823px;
+  margin: 0 auto;
+  padding: 0 var(--space-edge);
+}
+
+.website-hero__copy {
+  font-size: var(--text-lead);
+  line-height: 1.6;
+  color: var(--color-ink-50);
+  max-width: 706px;
+  margin: 24px auto 0;
+  padding: 0 var(--space-edge);
+}
+
+.website-hero .btn {
+  margin-top: 40px;
+}
+
+.website-hero__head {
+  will-change: transform;
+}
+
+.website-hero__shot {
+  position: relative; /* rides above the drifting hero text */
+  z-index: 1;
+  display: block;
+  width: var(--container);
+  aspect-ratio: 1143 / 593;
+  object-fit: cover;
+  margin: 80px auto 0;
+  border-radius: var(--radius);
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1), 0 5px 16px rgba(0, 0, 0, 0.05);
+}
+
+/* --- Template showcase (live Ray template in iframes) --- */
+.showcase {
+  padding-top: var(--space-section);
+}
+
+.showcase__title {
+  font-size: var(--text-display);
+  max-width: 777px;
+  margin: 0 auto;
+  padding: 0 var(--space-edge);
+  text-align: center;
+}
+
+.showcase__copy {
+  font-size: var(--text-lead);
+  line-height: 1.6;
+  color: var(--color-ink-50);
+  max-width: 548px;
+  margin: 16px auto 0;
+  padding: 0 var(--space-edge);
+  text-align: center;
+}
+
+.showcase__stage {
+  display: flex;
+  gap: 19px;
+  width: var(--container);
+  margin: 88px auto 0;
+}
+
+/* Each unit = the framed page + its label; the flex-basis tween is the
+   expand/collapse. Desktop card grows, the previous one shrinks. */
+.tpl {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  flex: 0 1 213px;
+  transition: flex-basis 650ms var(--ease-out), flex-grow 650ms var(--ease-out);
+}
+
+.tpl.is-desktop {
+  flex: 1 1 677px;
+}
+
+.tpl__card {
+  position: relative;
+  height: 458px;
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: #e6ebf1;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1), 0 5px 16px rgba(0, 0, 0, 0.05);
+}
+
+.tpl__frame {
+  display: block;
+  border: 0;
+  transform-origin: top left;
+  /* width/height/scale set by initTemplateShowcase() from the card size */
+}
+
+/* Collapsed cards act as a single "expand" button — the transparent
+   overlay captures the click; the expanded card has no overlay, so its
+   page scrolls and hovers live. */
+.tpl__expand {
+  position: absolute;
+  inset: 0;
+  cursor: pointer;
+  background: transparent;
+  border-radius: inherit;
+}
+
+.tpl.is-desktop .tpl__expand {
+  display: none;
+}
+
+.tpl__expand:focus-visible {
+  outline: 2px solid var(--color-ink);
+  outline-offset: -2px;
+}
+
+/* Soft veil that covers the swap between mobile and desktop viewports,
+   so the reflow happens out of sight mid-transition. */
+.tpl__veil {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, #eef2f7, #e2e9f1);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 260ms var(--ease-out);
+}
+
+.tpl.is-switching .tpl__veil {
+  opacity: 1;
+}
+
+.tpl__label {
+  margin-top: 24px;
+  font-size: 1rem;
+  line-height: 1.6;
+  text-align: center;
+  color: var(--color-ink);
+}
+
+@media (max-width: 900px) {
+  /* Stacked: every card renders the mobile viewport at full width;
+     the expand interaction is a desktop-scale demo only. */
+  .showcase__stage {
+    flex-direction: column;
+    gap: 32px;
+  }
+
+  .tpl,
+  .tpl.is-desktop {
+    flex: 1 1 auto;
+  }
+
+  .tpl__expand {
+    display: none;
   }
 }
 

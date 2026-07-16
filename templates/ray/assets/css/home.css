@@ -1,0 +1,304 @@
+/* ==========================================================================
+   home.css — styles unique to the home page (index.html)
+   Depends on base.css for tokens, buttons, navs, footer internals, animations.
+   ========================================================================== */
+
+:root {
+  --gutter: 172px;   /* home uses a wider gutter than the interior pages */
+}
+
+/* Sections (rhythm now lives in base.css §9) ----------------------------- */
+
+/* Hero ------------------------------------------------------------------- */
+.hero {
+  position: relative;
+  /* --sbw corrections keep the full-bleed card (and therefore the nav and
+     content inside it) on the content grid when a classic scrollbar makes
+     100vw wider than the document. */
+  width: calc(100vw - var(--sbw, 0px) - 2 * var(--frame));
+  height: calc(100vh - 2 * var(--frame));
+  min-height: 600px;
+  margin: var(--frame) calc(50% - (100vw - var(--sbw, 0px)) / 2 + var(--frame));
+  border-radius: var(--radius-card);
+  overflow: hidden;
+}
+
+.hero__carousel {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+/* Slides crossfade while a continuous Ken Burns zoom runs, so there is
+   never a hard reset between images. */
+.hero__slide {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transform: scale(1.04);
+  transition: opacity 2.2s cubic-bezier(.4, 0, .2, 1);
+  will-change: opacity, transform;
+}
+
+.hero__slide.is-active {
+  opacity: 1;
+  animation: ken-burns 9s linear forwards;
+}
+
+@keyframes ken-burns {
+  from { transform: scale(1.04); }
+  to   { transform: scale(1.14); }
+}
+
+.hero__overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to right,
+    rgba(18, 99, 124, .85) 0%,
+    rgba(18, 99, 124, .4) 40%,
+    transparent 65%
+  );
+}
+
+/* The hero is inset 32px from the viewport, while body copy sits at
+   --gutter inside the centred 1440px column. Subtracting the inset keeps the
+   nav (and hero content below) on exactly the same vertical grid line as the
+   section text that follows. */
+.hero__nav {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 92px;
+  padding: 0 calc(max((100vw - var(--sbw, 0px) - 1440px) / 2, 0px) + var(--gutter) - var(--frame));
+}
+
+.hero__logo-link {
+  display: flex;
+  align-items: center;
+}
+
+.hero__content {
+  position: absolute;
+  top: 50%;
+  left: calc(max((100vw - var(--sbw, 0px) - 1440px) / 2, 0px) + var(--gutter) - var(--frame));
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  width: 460px;
+}
+
+.hero__headline {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.hero__title { font-size: 56px; font-weight: 500; line-height: normal; color: var(--white); }
+.hero__sub   { font-size: 16px; line-height: 1.6; color: rgba(255, 255, 255, .9); }
+.hero__btns  { display: flex; gap: 16px; }
+
+/* Intro ------------------------------------------------------------------ */
+.eyebrow {
+  margin-bottom: 12px;
+  text-transform: uppercase;
+}
+
+.intro__title {
+  max-width: 696px;
+  margin-bottom: 32px;
+}
+
+.intro-avatars {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 32px;
+}
+
+.intro-avatars__stack { display: flex; }
+
+.intro-avatars__stack img {
+  width: 56px;
+  height: 56px;
+  margin-right: -18px;
+  border: 2px solid var(--white);
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.intro-avatars__stack img:last-child { margin-right: 0; }
+
+.intro-avatars__label {
+  margin-left: 24px;
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--mid);
+}
+
+.intro-body-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.intro-body {
+  max-width: 601px;
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--mid);
+}
+
+.intro-body-row .btn {
+  flex-shrink: 0;
+  margin-left: 32px;
+}
+
+/* Property cards, .divider now live in base.css §9 ----------------------- */
+
+/* Neighborhoods ---------------------------------------------------------- */
+.nbhd-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  align-items: start;
+  padding-bottom: 150px;
+}
+
+.nbhd-item {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.nbhd-item--offset { margin-top: 140px; }
+
+.nbhd-item img {
+  width: 100%;
+  height: 396px;
+  border-radius: var(--radius-card);
+  object-fit: cover;
+  cursor: pointer;
+  transition: transform .25s var(--ease-out), box-shadow .25s ease;
+}
+
+.nbhd-item img:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, .12);
+}
+
+.nbhd-title { margin-top: 4px; font-size: 26px; line-height: normal; color: var(--black); }
+.nbhd-body  { font-size: 16px; line-height: 1.6; color: var(--mid); }
+
+/* Stats ------------------------------------------------------------------ */
+.stats {
+  display: flex;
+  gap: 48px;
+  padding: 8px var(--gutter) 72px;
+}
+
+.stat {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+}
+
+.stat__num   { font-size: 68px; line-height: normal; color: var(--black); }
+.stat__label { font-size: 22px; line-height: 1.6; color: var(--black); }
+.stat__desc  { margin-top: 4px; font-size: 16px; line-height: 1.6; color: var(--mid); }
+
+/* CTA banner ------------------------------------------------------------- */
+.cta-banner {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 494px;
+  margin: 0 var(--frame);
+  border-radius: var(--radius-card);
+  overflow: hidden;
+}
+
+.cta-banner__bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1.25);
+  transition: transform .1s linear;
+  will-change: transform;
+}
+
+.cta-banner__overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, .4);
+}
+
+.cta-banner__content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  max-width: 860px;
+  padding: 0 24px;
+}
+
+.cta-banner__title {
+  font-size: 48px;
+  font-weight: 400;
+  line-height: normal;
+  text-align: center;
+  color: var(--white);
+}
+
+/* More properties (accordion) now lives in base.css §9 ------------------- */
+
+/* Footer box model (home) ------------------------------------------------ */
+.footer {
+  width: calc(100vw - var(--sbw, 0px) - 2 * var(--frame));
+  margin: 0 calc(50% - (100vw - var(--sbw, 0px)) / 2 + var(--frame)) var(--frame);
+}
+
+/* Responsive ------------------------------------------------------------- */
+@media (max-width: 1024px) {
+  :root { --gutter: 64px; }
+  .hero__content { width: 420px; }
+  .nbhd-grid { grid-template-columns: repeat(2, 1fr); padding-bottom: 100px; }
+  .nbhd-item--offset { margin-top: 64px; }
+  .stats { flex-wrap: wrap; gap: 32px; row-gap: 40px; }
+  .stat { flex: 1 1 40%; }
+}
+
+@media (max-width: 640px) {
+  :root { --gutter: 32px; }
+
+  /* Single static hero photo — JS skips the rotation at this width; hide the
+     stacked siblings and freeze the zoom so only one image ever shows. */
+  .hero__slide:not(:first-child) { display: none; }
+  .hero__slide.is-active { animation: none; transform: none; }
+
+  .hero__content { left: 24px; right: 24px; width: auto; }
+  .hero__title { font-size: clamp(30px, 9.5vw, 38px); overflow-wrap: break-word; }
+  .hero__btns { flex-wrap: wrap; }
+  .intro__title { font-size: 32px; }
+  .intro-body-row { flex-direction: column; align-items: flex-start; }
+  .intro-body-row .btn { margin: 24px 0 0; }
+  .nbhd-grid { grid-template-columns: 1fr; padding-bottom: 64px; }
+  .nbhd-item--offset { margin-top: 0; }
+  .nbhd-item img { height: 300px; }
+  .nbhd-title { font-size: 22px; }
+  .stats { flex-direction: column; padding-bottom: 56px; }
+  .stat__num { font-size: 48px; }
+  .cta-banner { height: 380px; }
+  .cta-banner__title { font-size: 30px; }
+}

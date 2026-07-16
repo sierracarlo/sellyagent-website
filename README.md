@@ -14,6 +14,7 @@ Static HTML/CSS/JS — open `index.html` in a browser. No build step.
 | `assets/images/logo-1.png` … `logo-7.png` | Partner/brokerage logos | Varying — see current files |
 | `assets/images/editor-photo.png` | Fixed photo inside the editor's base design | 1080×740 (JPG fine — update the src in editor.js if the extension changes) |
 | `assets/images/social-1.png` … `social-10.png` | Social post templates (social-media.html strip) | 275×344 (supplied at 2× = 550×688) |
+| `assets/images/website-hero.jpg` | Agent website screenshot (professional-websites.html hero) | 1143×593 (supply 2× = 2286×1186) |
 | `assets/images/email-1.jpg` … `email-4.jpg` | Email campaign template previews (email-marketing.html hero) | 271×410 (supply 2× = 542×820) |
 | `assets/video/product-demo.mp4` | Product demo video | 1144×700, H.264 + AAC |
 
