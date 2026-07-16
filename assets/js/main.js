@@ -274,53 +274,118 @@ function initTemplateStrip(strip) {
 //     Clicking a mobile card expands it to desktop and collapses the
 //     current one; a veil covers each iframe while its viewport swaps.
 function initTemplateShowcase(stage) {
-  const DESKTOP_VIEWPORT = 1440;
-  const MOBILE_VIEWPORT = 390;
+  const VIEWPORTS = { mobile: 390, desktop: 1440 };
   const SWITCH_MS = 650; // matches the .tpl flex-basis transition
+  const CARD_HEIGHT = 458;
   const units = Array.from(stage.querySelectorAll(".tpl"));
   const stacked = () => window.matchMedia("(max-width: 900px)").matches;
 
-  // Scale each iframe so its viewport fills the card at the card's
-  // current width (mobile cards show a real 390px layout, desktop 1440px).
+  // Where each card sits after any tween: mobile cards keep their 213px
+  // basis (shrinking pro-rata on narrow containers) and the desktop card
+  // absorbs the rest.
+  function cardWidths() {
+    if (stacked()) {
+      const width = stage.clientWidth;
+      return { mobile: width, desktop: width };
+    }
+    const inner = stage.clientWidth - 2 * 19; // two flex gaps
+    const mobile = inner >= 1103 ? 213 : (inner * 213) / 1103;
+    return { mobile, desktop: inner - 2 * mobile };
+  }
+
+  // Lay both copies of every page out once (and again only on resize):
+  // each frame is sized for the card width its state will occupy, so
+  // expanding a card never causes layout inside an iframe — the switch
+  // is purely a crossfade plus transforms.
+  function sizeAll() {
+    const widths = cardWidths();
+    units.forEach((unit) => {
+      // Stacked layout shows every page at the desktop viewport; side by
+      // side, the active copy follows each card's state.
+      setActive(unit, stacked() || unit.classList.contains("is-desktop") ? "desktop" : "mobile");
+      unit.querySelectorAll(".tpl__frame").forEach((frame) => {
+        const viewport = VIEWPORTS[frame.dataset.viewport];
+        const width = widths[frame.dataset.viewport];
+        frame.style.width = `${viewport}px`;
+        frame.style.height = `${Math.ceil(CARD_HEIGHT * viewport / Math.max(width, 1))}px`;
+      });
+    });
+    fitFrames();
+  }
+
+  // Transform-only tracking — cheap enough to run every animation frame
+  // while the card widths tween.
   function fitFrames() {
     units.forEach((unit) => {
-      const frame = unit.querySelector(".tpl__frame");
-      const cardWidth = unit.querySelector(".tpl__card").clientWidth;
-      const viewport = stacked() || unit.classList.contains("is-desktop")
-        ? DESKTOP_VIEWPORT
-        : MOBILE_VIEWPORT;
-      const scale = cardWidth / viewport;
-      frame.style.width = `${viewport}px`;
-      frame.style.height = `${Math.ceil(458 / scale)}px`;
-      frame.style.transform = `scale(${scale})`;
+      const width = unit.querySelector(".tpl__card").clientWidth;
+      unit.querySelectorAll(".tpl__frame").forEach((frame) => {
+        frame.style.transform = `scale(${width / VIEWPORTS[frame.dataset.viewport]})`;
+      });
     });
   }
 
+  function activeFrame(unit) {
+    return unit.querySelector(".tpl__frame.is-active");
+  }
+
+  function setActive(unit, viewport) {
+    unit.querySelectorAll(".tpl__frame").forEach((frame) => {
+      frame.classList.toggle("is-active", frame.dataset.viewport === viewport);
+    });
+  }
+
+  let switching = false;
+
   function expand(unit) {
-    if (unit.classList.contains("is-desktop") || stacked()) return;
-    units.forEach((u) => u.classList.add("is-switching"));
-    units.forEach((u) => u.classList.toggle("is-desktop", u === unit));
-    // Swap viewports behind the veil, keep re-fitting while the widths
-    // tween, then lift the veil once the cards settle.
-    fitFrames();
-    const follow = setInterval(fitFrames, 80);
-    setTimeout(() => {
-      clearInterval(follow);
+    if (switching || unit.classList.contains("is-desktop") || stacked()) return;
+    switching = true;
+    setWarm(unit, false);
+    units.forEach((u) => {
+      const becomesDesktop = u === unit;
+      u.classList.toggle("is-desktop", becomesDesktop);
+      setActive(u, becomesDesktop ? "desktop" : "mobile");
+    });
+    const start = performance.now();
+    const follow = (now) => {
       fitFrames();
-      units.forEach((u) => u.classList.remove("is-switching"));
-    }, SWITCH_MS);
+      if (now - start < SWITCH_MS) {
+        requestAnimationFrame(follow);
+      } else {
+        fitFrames();
+        switching = false;
+      }
+    };
+    requestAnimationFrame(follow);
+  }
+
+  // Hover intent pre-warms the frames the click would reveal (this
+  // unit's desktop copy and the current desktop unit's mobile copy), so
+  // they are already rasterized when the crossfade starts.
+  function setWarm(unit, warm) {
+    units.forEach((u) => {
+      u.querySelectorAll(".tpl__frame").forEach((frame) => {
+        frame.classList.remove("is-warm");
+      });
+    });
+    if (!warm) return;
+    const current = units.find((u) => u.classList.contains("is-desktop"));
+    unit.querySelector('.tpl__frame--desktop').classList.add("is-warm");
+    if (current && current !== unit) {
+      current.querySelector('.tpl__frame--mobile').classList.add("is-warm");
+    }
   }
 
   units.forEach((unit) => {
     const expandButton = unit.querySelector(".tpl__expand");
     expandButton.addEventListener("click", () => expand(unit));
+    expandButton.addEventListener("pointerenter", () => setWarm(unit, true));
+    expandButton.addEventListener("pointerleave", () => setWarm(unit, false));
 
     // Mobile drag layer: vertical drags scroll the framed page. Drags are
     // relayed via postMessage; scaled frames scroll 1:1 with the finger
     // (delta divided by the frame's scale). See the embed guard inside
     // the template pages for the receiving half.
     const touchLayer = unit.querySelector(".tpl__touch");
-    const frame = unit.querySelector(".tpl__frame");
     let lastY = null;
 
     touchLayer.addEventListener("pointerdown", (event) => {
@@ -329,6 +394,7 @@ function initTemplateShowcase(stage) {
     });
     touchLayer.addEventListener("pointermove", (event) => {
       if (lastY === null) return;
+      const frame = activeFrame(unit);
       const scale = frame.getBoundingClientRect().width / frame.offsetWidth;
       const dy = (lastY - event.clientY) / (scale || 1);
       lastY = event.clientY;
@@ -344,17 +410,19 @@ function initTemplateShowcase(stage) {
   window.addEventListener("message", (event) => {
     const data = event.data;
     if (!data || data.type !== "sellyagent:edge") return;
-    const unit = units.find(
-      (u) => u.querySelector(".tpl__frame").contentWindow === event.source
-    );
-    if (!unit) return;
-    const frame = unit.querySelector(".tpl__frame");
-    const scale = frame.getBoundingClientRect().width / frame.offsetWidth || 1;
+    let sourceFrame = null;
+    units.forEach((unit) => {
+      unit.querySelectorAll(".tpl__frame").forEach((frame) => {
+        if (frame.contentWindow === event.source) sourceFrame = frame;
+      });
+    });
+    if (!sourceFrame) return;
+    const scale = sourceFrame.getBoundingClientRect().width / sourceFrame.offsetWidth || 1;
     window.scrollBy(0, data.dy * scale);
   });
 
-  window.addEventListener("resize", fitFrames);
-  fitFrames();
+  window.addEventListener("resize", sizeAll);
+  sizeAll();
 }
 
 // 13. FAQ accordion

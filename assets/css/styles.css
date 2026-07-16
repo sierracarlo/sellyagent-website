@@ -2038,13 +2038,41 @@ h2 {
   overflow: hidden;
   background: #e6ebf1;
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1), 0 5px 16px rgba(0, 0, 0, 0.05);
+  contain: layout paint; /* card layout/paint never leaks into the page */
 }
 
+/* Each card holds two pre-rendered copies of its page — one laid out at
+   the mobile viewport, one at desktop. Expanding crossfades between them
+   and only transforms ever animate, so no page reflows at click time. */
 .tpl__frame {
-  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
   border: 0;
   transform-origin: top left;
+  will-change: transform; /* scale rides its own layer during the tween */
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  /* Outgoing frame holds fully visible under the incoming one, then
+     snaps off once the fade-in has covered it — only one opacity
+     animation runs per card instead of two. */
+  transition: opacity 0s linear 340ms, visibility 0s linear 340ms;
   /* width/height/scale set by initTemplateShowcase() from the card size */
+}
+
+/* Pre-warmed on hover: rendered but invisible, so the click-time reveal
+   is a pure crossfade with no rasterization stall. */
+.tpl__frame.is-warm {
+  visibility: visible;
+  transition: opacity 320ms var(--ease-out);
+}
+
+.tpl__frame.is-active {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transition: opacity 320ms var(--ease-out);
 }
 
 /* Collapsed cards act as a single "expand" button — the transparent
@@ -2065,21 +2093,6 @@ h2 {
 .tpl__expand:focus-visible {
   outline: 2px solid var(--color-ink);
   outline-offset: -2px;
-}
-
-/* Soft veil that covers the swap between mobile and desktop viewports,
-   so the reflow happens out of sight mid-transition. */
-.tpl__veil {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(180deg, #eef2f7, #e2e9f1);
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 260ms var(--ease-out);
-}
-
-.tpl.is-switching .tpl__veil {
-  opacity: 1;
 }
 
 .tpl__label {
