@@ -418,7 +418,15 @@ function initTemplateShowcase(stage) {
     });
     if (!sourceFrame) return;
     const scale = sourceFrame.getBoundingClientRect().width / sourceFrame.offsetWidth || 1;
-    window.scrollBy(0, data.dy * scale);
+    // Drag deltas arrive in frame-space (rescale); wheel deltas are already
+    // screen-space. Route through Lenis when it's driving the page so the
+    // hand-off keeps the same glide as normal scrolling.
+    const dy = data.wheel ? data.dy : data.dy * scale;
+    if (lenis) {
+      lenis.scrollTo((lenis.targetScroll ?? window.scrollY) + dy);
+    } else {
+      window.scrollBy(0, dy);
+    }
   });
 
   window.addEventListener("resize", sizeAll);

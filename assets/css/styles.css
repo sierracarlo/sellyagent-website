@@ -356,8 +356,12 @@ h2 {
   animation: marquee-scroll 32s linear infinite;
 }
 
-.marquee:hover .marquee__track {
-  animation-play-state: paused;
+/* Hover-pause only on devices with real hover — on touch screens a tap
+   sets a sticky :hover that would freeze the loop indefinitely. */
+@media (hover: hover) {
+  .marquee:hover .marquee__track {
+    animation-play-state: paused;
+  }
 }
 
 .proof__logo {
@@ -775,6 +779,12 @@ h2 {
 
 .cta__title {
   font-size: var(--text-display);
+}
+
+/* Longer CTA headline (websites page): give the content column enough
+   room for the intended two-line break. */
+.cta--wide .cta__content {
+  max-width: 780px;
 }
 
 .footer {

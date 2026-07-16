@@ -301,6 +301,15 @@
       // Drag-to-scroll relay: the showcase overlay sends drag deltas from
       // the parent page; when this page can't scroll further, the delta is
       // bounced back so the parent page keeps scrolling instead.
+      // When a wheel scroll reaches this page's top or bottom, pass the
+      // remaining delta to the parent so the showcase page keeps moving.
+      window.addEventListener('wheel', function (event) {
+        var max = document.documentElement.scrollHeight - window.innerHeight;
+        var atEdge = event.deltaY > 0 ? window.scrollY >= max - 1 : window.scrollY <= 1;
+        if (atEdge) {
+          window.parent.postMessage({ type: 'sellyagent:edge', dy: event.deltaY, wheel: true }, '*');
+        }
+      }, { passive: true });
       window.addEventListener('message', function (event) {
         var data = event.data;
         if (!data || data.type !== 'sellyagent:scroll') return;
