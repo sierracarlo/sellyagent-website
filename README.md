@@ -16,6 +16,8 @@ Static HTML/CSS/JS — open `index.html` in a browser. No build step.
 | `assets/images/social-1.png` … `social-10.png` | Social post templates (social-media.html strip) | 275×344 (supplied at 2× = 550×688) |
 | `assets/images/website-hero.jpg` | Agent website screenshot (professional-websites.html hero) | 1143×593 (supply 2× = 2286×1186) |
 | `assets/images/email-1.jpg` … `email-4.jpg` | Email campaign template previews (email-marketing.html hero) | 271×410 (supply 2× = 542×820) |
+| `assets/images/mls-card-1.jpg` … `mls-card-5.jpg` | MLS listing photos (trestle-integration.html hero strip) | 393×290 (supplied at 2× = 786×580) |
+| `assets/images/portal-1.jpg` … `portal-6.jpg` | Listing photos in the map portal demo (trestle-integration.html) | 382×280 (supplied at 2× = 764×560) |
 | `assets/video/product-demo.mp4` | Product demo video | 1144×700, H.264 + AAC |
 
 The SellyAgent logo (`Selly-Logo.svg`) is inlined in `index.html` (header + footer) with `fill="currentColor"` so the nav color flip works automatically.

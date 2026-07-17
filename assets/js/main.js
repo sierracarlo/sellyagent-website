@@ -461,7 +461,134 @@ function initReveals() {
   document.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
 }
 
-// 15. Initialization
+// 15. Trestle map — drag to pan anywhere within the artwork, zoom in and
+//     out via the corner controls (out reveals the wider metro area).
+//     Pins react to hover only (CSS); nothing is clickable.
+function initPortalMap(mapEl) {
+  const scene = mapEl.querySelector("[data-map-scene]");
+  const VIEWBOX = { w: 1090, h: 640 }; // matches the inline SVG
+  // Full artwork bounds — the drawn map extends well past the viewBox so
+  // panning and zooming out never reveal blank space.
+  const ART = { x: -300, y: -220, w: 1690, h: 1080 };
+  const ZOOM_STEP = 1.4;
+  const MIN_SCALE = 0.62;
+  const MAX_SCALE = 4;
+  let scale = 1;
+  let tx = 0;
+  let ty = 0;
+
+  // preserveAspectRatio="slice": px per user unit, and the visible window
+  // measured in user units.
+  function metrics() {
+    const k = Math.max(mapEl.clientWidth / VIEWBOX.w, mapEl.clientHeight / VIEWBOX.h);
+    return { k, vw: mapEl.clientWidth / k, vh: mapEl.clientHeight / k };
+  }
+
+  // Keep the visible window inside the artwork; if a fully zoomed-out axis
+  // is smaller than the window, center it instead.
+  function clampAxis(t, view, artStart, artSize) {
+    const max = -artStart * scale;
+    const min = view - (artStart + artSize) * scale;
+    return min > max ? (view - artSize * scale) / 2 - artStart * scale : Math.min(max, Math.max(t, min));
+  }
+
+  function clamp() {
+    const { vw, vh } = metrics();
+    tx = clampAxis(tx, vw, ART.x, ART.w);
+    ty = clampAxis(ty, vh, ART.y, ART.h);
+  }
+
+  function render() {
+    scene.style.transform = `translate(${tx}px, ${ty}px) scale(${scale})`;
+  }
+
+  // Zoom about the center of the visible window so the view stays anchored.
+  function zoom(factor) {
+    const { vw, vh } = metrics();
+    const next = Math.min(MAX_SCALE, Math.max(MIN_SCALE, scale * factor));
+    tx = vw / 2 - ((vw / 2 - tx) / scale) * next;
+    ty = vh / 2 - ((vh / 2 - ty) / scale) * next;
+    scale = next;
+    clamp();
+    render();
+  }
+
+  mapEl.querySelectorAll("[data-map-zoom]").forEach((btn) => {
+    btn.addEventListener("click", () => zoom(btn.dataset.mapZoom === "in" ? ZOOM_STEP : 1 / ZOOM_STEP));
+  });
+
+  let dragging = false;
+  let lastX = 0;
+  let lastY = 0;
+
+  mapEl.addEventListener("pointerdown", (event) => {
+    if (event.target.closest(".portal__zoom")) return;
+    event.preventDefault(); // stops text selection from starting mid-drag
+    dragging = true;
+    lastX = event.clientX;
+    lastY = event.clientY;
+    mapEl.classList.add("is-panning");
+    mapEl.setPointerCapture(event.pointerId);
+  });
+  mapEl.addEventListener("pointermove", (event) => {
+    if (!dragging) return;
+    const { k } = metrics(); // screen px → user units
+    tx += (event.clientX - lastX) / k;
+    ty += (event.clientY - lastY) / k;
+    lastX = event.clientX;
+    lastY = event.clientY;
+    clamp();
+    render();
+  });
+  const endPan = () => {
+    dragging = false;
+    mapEl.classList.remove("is-panning");
+  };
+  mapEl.addEventListener("pointerup", endPan);
+  mapEl.addEventListener("pointercancel", endPan);
+
+  window.addEventListener("resize", () => {
+    clamp();
+    render();
+  });
+}
+
+// 16. Trestle portal snap — the portal fills the viewport (CSS), and when
+//     the user scrolls it substantially into view the page glides so it
+//     occupies the full screen. Re-arms once it mostly leaves the viewport.
+function initPortalSnap(portal) {
+  if (prefersReducedMotion) return;
+  const wide = window.matchMedia("(min-width: 1025px)");
+  let snapped = false;
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (!wide.matches) return;
+        if (entry.intersectionRatio >= 0.35 && !snapped) {
+          snapped = true;
+          // Land the portal just below the fixed header so the filter
+          // bar stays visible; together they fill the screen exactly.
+          const offset = -header.offsetHeight;
+          if (lenis) {
+            lenis.scrollTo(portal, { offset, duration: 1 });
+          } else {
+            window.scrollTo({
+              top: portal.getBoundingClientRect().top + window.scrollY + offset,
+              behavior: "smooth",
+            });
+          }
+        } else if (entry.intersectionRatio < 0.1) {
+          snapped = false;
+        }
+      });
+    },
+    { threshold: [0.1, 0.35] }
+  );
+  observer.observe(portal);
+}
+
+// 17. Initialization
 function init() {
   initSmoothScroll();
   initReveals();
@@ -483,6 +610,12 @@ function init() {
 
   const templateStrip = document.querySelector("[data-template-strip]");
   if (templateStrip) initTemplateStrip(templateStrip);
+
+  const portalMap = document.getElementById("portalMap");
+  if (portalMap) initPortalMap(portalMap);
+
+  const portal = document.getElementById("mlsPortal");
+  if (portal) initPortalSnap(portal);
 
   const showcaseStage = document.querySelector("[data-showcase]");
   if (showcaseStage) initTemplateShowcase(showcaseStage);

@@ -2148,6 +2148,529 @@ h2 {
 }
 
 /* ============================================
+   SECTIONS — Trestle Integration page
+   ============================================ */
+
+/* --- Hero MLS card strip (shares .post-strip behavior) --- */
+.post-strip--mls .post-strip__track {
+  align-items: stretch;
+}
+
+.social-hero .mls-card,
+.mls-card,
+.mls-card__body {
+  text-align: left; /* the hero centers text; card content stays left-aligned */
+}
+
+.mls-card {
+  width: 393px;
+  flex-shrink: 0;
+  border-radius: var(--radius);
+  filter: drop-shadow(0 1px 0.5px rgba(0, 0, 0, 0.1)) drop-shadow(0 5px 8px rgba(0, 0, 0, 0.05));
+  user-select: none;
+}
+
+.mls-card__media {
+  position: relative;
+  height: 290px;
+  border-radius: var(--radius) var(--radius) 0 0;
+  overflow: hidden;
+}
+
+.mls-card__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.mls-card__badge {
+  position: absolute;
+  top: 13px;
+  left: 11px;
+  padding: 4px 12px;
+  background: #00bc7d;
+  color: #fff;
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 1.2;
+  border-radius: 100px;
+}
+
+.mls-card__body {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 12px;
+  background: #fff;
+  border-radius: 0 0 var(--radius) var(--radius);
+}
+
+.mls-card__price {
+  font-size: 20px;
+  line-height: 1.2;
+}
+
+.mls-card__specs {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--color-ink-50);
+}
+
+.mls-card__dot {
+  width: 2px;
+  height: 2px;
+  border-radius: 50%;
+  background: var(--color-ink-50);
+}
+
+.mls-card__address {
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--color-ink-50);
+}
+
+.mls-card__mls {
+  margin-top: 4px;
+  font-size: 8px;
+  font-weight: 600;
+  color: rgba(17, 24, 39, 0.3);
+}
+
+/* --- Portal (interactive Miami map demo) --- */
+.portal-section {
+  padding-top: var(--space-section);
+}
+
+.portal-section__intro {
+  max-width: 777px;
+  margin: 0 auto;
+  padding: 0 var(--space-edge);
+  text-align: center;
+}
+
+.portal-section__title {
+  font-size: var(--text-display);
+}
+
+.portal-section__copy {
+  font-size: var(--text-lead);
+  line-height: 1.6;
+  color: var(--color-ink-50);
+  max-width: 624px;
+  margin: 16px auto 0;
+}
+
+.portal {
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - var(--header-height)); /* fills the screen below the fixed header; scroll snaps it into place (main.js) */
+  margin-top: 104px;
+  background: #fff;
+  border-block: 1px solid rgba(17, 24, 39, 0.08);
+  font-family: "Inter", var(--font-sans);
+}
+
+/* Filter bar — display-only controls */
+.portal__filters {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px var(--space-edge);
+  overflow: hidden;
+}
+
+.portal__search {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 320px;
+  flex-shrink: 1;
+  min-width: 180px;
+  padding: 10px 16px;
+  border: 1px solid rgba(17, 24, 39, 0.15);
+  border-radius: 100px;
+  font-size: 14px;
+  color: rgba(17, 24, 39, 0.45);
+  white-space: nowrap;
+}
+
+.portal__filter {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  border: 1px solid rgba(17, 24, 39, 0.12);
+  border-radius: var(--radius-sm);
+  font-size: 14px;
+  font-weight: 500;
+  white-space: nowrap;
+  cursor: default;
+  transition: border-color var(--duration-fast) var(--ease-out);
+}
+
+.portal__filter:hover {
+  border-color: rgba(17, 24, 39, 0.35);
+}
+
+.portal__filter.is-active {
+  border: 1.5px solid var(--color-ink);
+}
+
+.portal__filter-count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  background: var(--color-ink);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 600;
+  border-radius: 50%;
+}
+
+.portal__filters-spacer {
+  flex: 1;
+}
+
+.portal__view-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border: 1px solid rgba(17, 24, 39, 0.12);
+  border-radius: var(--radius-sm);
+  color: rgba(17, 24, 39, 0.4);
+}
+
+.portal__view-toggle .is-active {
+  color: var(--color-ink);
+}
+
+/* Split body: results panel + map */
+.portal__body {
+  display: flex;
+  flex: 1;
+  min-height: 0; /* lets the results panel scroll inside the fixed height */
+  border-top: 1px solid rgba(17, 24, 39, 0.08);
+}
+
+.portal__results {
+  width: 43%;
+  min-width: 340px;
+  padding: 20px var(--space-edge);
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(17, 24, 39, 0.2) transparent;
+}
+
+.portal__count {
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 16px;
+}
+
+.portal__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.portal-card {
+  border-radius: 12px;
+  box-shadow: 0 1px 3px rgba(17, 24, 39, 0.08);
+  border: 1px solid rgba(17, 24, 39, 0.06);
+  overflow: hidden;
+  transition: transform var(--duration-fast) var(--ease-out),
+              box-shadow var(--duration-fast) var(--ease-out);
+}
+
+.portal-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(17, 24, 39, 0.14);
+}
+
+.portal-card__media {
+  position: relative;
+  aspect-ratio: 382 / 280;
+}
+
+.portal-card__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.portal-card__badge {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  padding: 4px 12px;
+  background: #00bc7d;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  border-radius: 100px;
+}
+
+.portal-card__counter {
+  position: absolute;
+  right: 12px;
+  bottom: 26px;
+  font-size: 11px;
+  font-weight: 500;
+  color: #fff;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+}
+
+/* Photo pagination strip along the bottom of the image */
+.portal-card__dots {
+  position: absolute;
+  inset: auto 8px 8px;
+  height: 3px;
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.45);
+}
+
+.portal-card__dots::before {
+  content: "";
+  position: absolute;
+  inset: 0 88% 0 0;
+  border-radius: 2px;
+  background: #fff;
+}
+
+.portal-card__body {
+  padding: 12px 14px 14px;
+}
+
+.portal-card__price {
+  font-size: 19px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.portal-card__specs {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 6px;
+  font-size: 12.5px;
+  color: rgba(17, 24, 39, 0.75);
+}
+
+.portal-card__chip {
+  padding: 2px 8px;
+  background: rgba(17, 24, 39, 0.06);
+  border-radius: 5px;
+  font-size: 11px;
+  color: rgba(17, 24, 39, 0.6);
+}
+
+.portal-card__address {
+  margin-top: 6px;
+  font-size: 12.5px;
+  color: rgba(17, 24, 39, 0.75);
+}
+
+.portal-card__mls {
+  margin-top: 8px;
+  font-size: 10.5px;
+  color: rgba(17, 24, 39, 0.4);
+}
+
+/* Map */
+.portal__map {
+  position: relative;
+  flex: 1;
+  overflow: hidden;
+  background: #9ddce4;
+  touch-action: none;
+  cursor: grab;
+  user-select: none; /* dragging must never select the map labels */
+}
+
+.portal__map.is-panning {
+  cursor: grabbing;
+}
+
+.portal__svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.portal__svg [data-map-scene] {
+  transform-origin: 0 0;
+  transition: transform 320ms var(--ease-out);
+  will-change: transform;
+}
+
+.portal__map.is-panning .portal__svg [data-map-scene] {
+  transition: none;
+}
+
+.map-pin {
+  cursor: default;
+  transform-box: fill-box;
+  transform-origin: center;
+  transition: transform var(--duration-fast) var(--ease-out);
+}
+
+.map-pin:hover {
+  transform: scale(1.12);
+}
+
+.map-pin:hover rect {
+  stroke: #fff;
+  stroke-width: 2;
+}
+
+.portal__zoom {
+  position: absolute;
+  right: 16px;
+  bottom: 16px;
+  display: flex;
+  flex-direction: column;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(17, 24, 39, 0.18);
+}
+
+.portal__zoom-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  background: #fff;
+  transition: background var(--duration-fast) var(--ease-out);
+}
+
+.portal__zoom-btn:hover {
+  background: rgba(17, 24, 39, 0.06);
+}
+
+.portal__zoom-btn + .portal__zoom-btn {
+  border-top: 1px solid rgba(17, 24, 39, 0.1);
+}
+
+/* --- Benefits grid --- */
+.benefits {
+  padding-top: var(--space-section);
+}
+
+.benefits__intro {
+  max-width: 778px;
+  margin: 0 auto;
+  padding: 0 var(--space-edge);
+  text-align: center;
+}
+
+.benefits__title {
+  font-size: var(--text-display);
+}
+
+.benefits__copy {
+  font-size: var(--text-lead);
+  line-height: 1.6;
+  color: var(--color-ink-50);
+  margin-top: 16px;
+}
+
+.benefits__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  width: var(--container);
+  margin: 88px auto 0;
+}
+
+.benefit-card {
+  padding: 33px;
+  background: #fff;
+  border: 1px solid rgba(17, 24, 39, 0.05);
+  border-radius: var(--radius);
+  filter: drop-shadow(10px 15px 25px rgba(17, 24, 39, 0.1)) drop-shadow(0 8px 5px rgba(17, 24, 39, 0.02));
+}
+
+.benefit-card__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  background: rgba(17, 24, 39, 0.05);
+  border-radius: 14px;
+}
+
+.benefit-card__heading {
+  margin-top: 24px;
+  font-size: var(--text-base);
+  font-weight: 600;
+  line-height: 24px;
+}
+
+.benefit-card__copy {
+  margin-top: 8px;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+  color: var(--color-ink-50);
+}
+
+/* --- Trestle responsive --- */
+@media (max-width: 1024px) {
+  .portal {
+    height: auto;
+  }
+
+  .portal__body {
+    flex-direction: column;
+  }
+
+  .portal__results {
+    width: 100%;
+    max-height: 480px;
+  }
+
+  .portal__map {
+    height: 440px;
+  }
+
+  .benefits__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .portal {
+    margin-top: 64px;
+  }
+
+  .portal__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .benefits__grid {
+    grid-template-columns: 1fr;
+    margin-top: 56px;
+  }
+
+  .mls-card {
+    width: 300px;
+  }
+
+  .mls-card__media {
+    height: 221px;
+  }
+}
+
+/* ============================================
    ANIMATIONS
    ============================================ */
 .reveal {
