@@ -177,21 +177,31 @@ h2 {
   opacity: 0;
 }
 
-.site-header__actions {
+/* Feature links, centered between the logo and the menu button */
+.site-header__nav {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
   display: flex;
   align-items: center;
-  gap: 28px;
+  gap: 36px;
 }
 
-.site-header__signin {
-  font-size: var(--text-base);
+.site-header__nav-link {
+  font-size: 15px;
   font-weight: 600;
   color: inherit;
+  white-space: nowrap;
   transition: opacity var(--duration-fast) var(--ease-out);
 }
 
-.site-header__signin:hover {
+.site-header__nav-link:hover {
   opacity: 0.7;
+}
+
+.site-header__nav-link[aria-current="page"] {
+  text-underline-offset: 6px;
+  text-decoration: underline 1.5px;
 }
 
 .site-header__logo,
@@ -200,22 +210,49 @@ h2 {
   color: inherit;
 }
 
-.site-header__menu svg {
-  transition: transform var(--duration-fast) var(--ease-out);
+/* Hamburger — three bars morphing into a close icon when open */
+.site-header__menu {
+  flex-direction: column;
+  justify-content: center;
+  gap: 6px;
+  padding: 10px 8px;
+  margin-right: -8px; /* keeps the bars optically on the edge gutter */
 }
 
-.site-header__menu:hover svg {
-  transform: rotate(90deg);
+.site-header__menu-bar {
+  width: 26px;
+  height: 2px;
+  border-radius: 2px;
+  background: currentColor;
+  transition: transform var(--duration-fast) var(--ease-out),
+              opacity var(--duration-fast) var(--ease-out);
 }
 
-.site-header__menu[aria-expanded="true"] svg {
-  transform: rotate(45deg); /* plus becomes a close */
+.site-header__menu:hover .site-header__menu-bar:nth-child(1) { transform: translateY(-1px); }
+.site-header__menu:hover .site-header__menu-bar:nth-child(3) { transform: translateY(1px); }
+
+.site-header__menu[aria-expanded="true"] .site-header__menu-bar:nth-child(1) {
+  transform: translateY(8px) rotate(45deg);
+}
+
+.site-header__menu[aria-expanded="true"] .site-header__menu-bar:nth-child(2) {
+  opacity: 0;
+}
+
+.site-header__menu[aria-expanded="true"] .site-header__menu-bar:nth-child(3) {
+  transform: translateY(-8px) rotate(-45deg);
 }
 
 /* While the menu is open the header sits over the dark overlay,
    so it's always white regardless of scroll position. */
 .site-header.is-menu-open {
   color: #fff;
+}
+
+@media (max-width: 1024px) {
+  .site-header__nav {
+    display: none;
+  }
 }
 
 /* ============================================
@@ -242,9 +279,11 @@ h2 {
 .nav-menu__links {
   list-style: none;
   margin: 0;
-  padding: 328px 0 0 48px;
+  padding: 328px 48px 0 0;
   display: flex;
   flex-direction: column;
+  align-items: flex-end; /* items on the right; empty space (close) on the left */
+  text-align: right;
   gap: 24px;
 }
 
@@ -904,7 +943,7 @@ h2 {
   }
 
   .nav-menu__links {
-    padding: 180px 0 0 var(--space-edge);
+    padding: 180px var(--space-edge) 0 0;
   }
 
   .cta {
