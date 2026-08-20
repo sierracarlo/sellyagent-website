@@ -1,0 +1,741 @@
+/* ==========================================================================
+   base.css — shared design system for the Ray De Leon site
+   Loaded by every page before its page-specific stylesheet.
+
+   Sections:
+     1. Reset
+     2. Design tokens
+     3. Typography helpers
+     4. Buttons
+     5. Site logo
+     6. Sticky navigation
+     7. Footer (shared parts — per-page box model lives in the page stylesheet)
+     8. Scroll-reveal animations
+   ========================================================================== */
+
+/* 1. Reset ---------------------------------------------------------------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  max-width: 1440px;
+  margin: 0 auto;
+  font-family: 'Inter', sans-serif;
+  color: var(--black);
+  background: var(--white);
+  overflow-x: hidden;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+ul {
+  list-style: none;
+}
+
+/* 2. Design tokens -------------------------------------------------------- */
+:root {
+  --black: #191919;
+  --mid:   #707070;
+  --brand: #12637c;
+  --white: #ffffff;
+
+  /* Horizontal content gutter. Pages override this to match their layout. */
+  --gutter: 148px;
+
+  /* The white frame around full-bleed cards (heroes, banners, footer). */
+  --frame: 32px;
+
+  --radius-card: 16px;
+  --radius-pill: 100px;
+  --radius-icon: 12px;
+
+  --ease-out: cubic-bezier(.22, 1, .36, 1);
+}
+
+/* 3. Typography helpers --------------------------------------------------- */
+.eyebrow {
+  font-size: 14px;
+  letter-spacing: 2.8px;
+  line-height: 1.6;
+  color: var(--black);
+}
+
+.section-title {
+  font-size: 48px;
+  font-weight: 500;
+  line-height: normal;
+  color: var(--black);
+}
+
+/* 4. Buttons -------------------------------------------------------------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 32px;
+  border: none;
+  border-radius: var(--radius-pill);
+  font-family: 'Inter', sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: opacity .2s, transform .2s var(--ease-out);
+}
+
+.btn:hover {
+  opacity: .85;
+  transform: translateY(-2px);
+}
+
+.btn--white   { background: var(--white); color: var(--black); }
+.btn--ghost   { background: rgba(255, 255, 255, .2); color: var(--white); border: 1px solid var(--white); }
+.btn--outline { background: var(--white); color: var(--mid); border: 1px solid var(--mid); }
+.btn--dark    { background: transparent; color: var(--black); border: 1px solid var(--black); }
+
+/* 5. Site logo ------------------------------------------------------------
+   Defined once per page as an inline <symbol> and referenced with <use>.
+   Paths use `currentColor`, so each placement sets its own colour. */
+.logo {
+  width: 216px;
+  height: 45px;
+  color: var(--black);
+}
+
+/* Large wordmark used in the footer brand block. */
+.logo--footer {
+  width: 360px;
+  max-width: 100%;
+  height: auto;
+  aspect-ratio: 216 / 45;
+}
+
+/* Hides the inline sprite definition without removing it from the a11y tree
+   in a way that breaks <use> references. */
+.svg-sprite {
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+}
+
+/* 6. Sticky navigation ----------------------------------------------------
+   One continuous nav experience in two phases, driven by site.js:
+
+   `.is-pinned`  — while scrolling within the hero, this fixed bar takes over
+                   from the in-hero nav at the exact scroll position where the
+                   two coincide, so the handoff is invisible. It stays
+                   transparent with white text, reading as the hero nav
+                   "sticking" to the top.
+   `.is-solid`   — once the hero has scrolled past, the bar smoothly gains a
+                   black blurred backdrop.
+
+   Fixed (not sticky) so it never inserts height into the document flow, and
+   full-bleed with padding that keeps the logo and menu on the same
+   1440px/--gutter grid as the page content. */
+#sticky-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  /* 100vw includes a classic scrollbar; subtracting --sbw (set by site.js)
+     keeps this bar and its padding on the document's content grid, so the
+     handoff from the in-hero nav is pixel-exact on every platform. */
+  width: calc(100vw - var(--sbw, 0px));
+  height: 92px;
+  padding: 0 calc(max((100vw - var(--sbw, 0px) - 1440px) / 2, 0px) + var(--gutter));
+  background: rgba(253, 253, 253, 0);
+  backdrop-filter: blur(0);
+  -webkit-backdrop-filter: blur(0);
+  visibility: hidden;
+  transition: background-color .45s ease, backdrop-filter .45s ease;
+}
+
+#sticky-nav.is-pinned {
+  visibility: visible;
+}
+
+#sticky-nav.is-solid {
+  background: rgba(253, 253, 253, .72);
+  backdrop-filter: blur(50px);
+  -webkit-backdrop-filter: blur(50px);
+}
+
+#sticky-nav .logo { color: var(--white); transition: color .45s ease; }
+#sticky-nav ul    { display: flex; gap: 54px; }
+#sticky-nav a     { font-size: 16px; color: var(--white); transition: opacity .2s, color .45s ease; }
+#sticky-nav a:hover { opacity: .7; }
+
+/* Past the hero the bar goes light, so its text and logo flip to black in
+   step with the background transition. */
+#sticky-nav.is-solid .logo,
+#sticky-nav.is-solid a { color: var(--black); }
+
+/* Hero navigation lives inside each hero, but the link styling is shared. */
+.hero__nav a      { font-size: 16px; color: var(--white); transition: opacity .2s; }
+.hero__nav a:hover { opacity: .7; }
+.hero__nav ul     { display: flex; gap: 54px; }
+.hero__nav .logo  { color: var(--white); }
+
+/* Hamburger — hidden on desktop and tablet; replaces the link row on mobile.
+   Bars use currentColor so it inherits each nav's phase colour. */
+.nav-burger {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  width: 40px;
+  height: 40px;
+  border: none;
+  background: transparent;
+  color: var(--white);
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.nav-burger span {
+  width: 22px;
+  height: 2px;
+  background: currentColor;
+}
+
+#sticky-nav.is-solid .nav-burger { color: var(--black); }
+
+/* Full-screen mobile menu */
+.mobile-menu {
+  position: fixed;
+  inset: 0;
+  z-index: 400;
+  display: flex;
+  flex-direction: column;
+  padding: 24px;
+  background: var(--black);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity .3s ease, visibility .3s;
+}
+
+.mobile-menu.open {
+  opacity: 1;
+  visibility: visible;
+}
+
+.mobile-menu__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 56px;
+}
+
+.mobile-menu .logo { color: var(--white); }
+
+.mobile-menu__close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border: none;
+  background: transparent;
+  color: var(--white);
+  cursor: pointer;
+}
+
+.mobile-menu__links {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 56px;
+}
+
+.mobile-menu__links a {
+  padding: 10px 0;
+  font-size: 34px;
+  font-weight: 500;
+  color: var(--white);
+}
+
+body.menu-open { overflow: hidden; }
+
+/* 7. Footer (shared) ------------------------------------------------------
+   The outer `.footer` box model differs per page (top margin, full-bleed
+   technique) and is defined in each page stylesheet. Everything inside the
+   footer is identical across pages and lives here. */
+.footer {
+  position: relative;
+  height: 804px;
+  border-radius: var(--radius-card);
+  overflow: hidden;
+}
+
+.footer__bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.footer__grad {
+  position: absolute;
+  inset: 0;
+  border-radius: var(--radius-card);
+  background: linear-gradient(
+    180deg,
+    #191919 0%,
+    #191919 38%,
+    rgba(25, 25, 25, .88) 52%,
+    rgba(25, 25, 25, .35) 68%,
+    rgba(25, 25, 25, 0) 100%
+  );
+}
+
+.footer__inner {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 1440px;
+  height: 100%;
+  margin: 0 auto;
+  /* The footer sits --frame inside the viewport, so subtracting that from
+     the page gutter keeps footer content on the same grid as the body copy. */
+  padding: 64px calc(var(--gutter) - var(--frame)) 0;
+}
+
+.footer__top   { display: flex; justify-content: space-between; align-items: flex-start; }
+.footer__brand { display: flex; flex-direction: column; gap: 32px; }
+.footer__brand .logo--footer { color: var(--white); }
+
+.footer__nav-cols { display: flex; gap: 64px; margin-top: 12px; }
+.footer__col      { display: flex; flex-direction: column; gap: 2px; min-width: 116px; }
+.footer__col-title { margin-bottom: 8px; font-size: 16px; font-weight: 500; line-height: 1.6; color: var(--white); }
+.footer__col a     { font-size: 16px; line-height: 1.8; color: rgba(255, 255, 255, .4); transition: color .2s; }
+.footer__col a:hover { color: rgba(255, 255, 255, .85); }
+
+.footer__brand .btn { width: fit-content; }
+
+/* Divider with the copyright row beneath it. */
+.footer__meta {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-top: 76px;
+}
+
+.footer__rule {
+  margin: 0;
+  border: none;
+  border-top: 1px solid rgba(255, 255, 255, .25);
+}
+
+.footer__meta-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 16px;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, .4);
+}
+
+/* 8. Scroll-reveal animations --------------------------------------------- */
+@keyframes fade-up  { from { opacity: 0; transform: translateY(32px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes fade-in  { from { opacity: 0; } to { opacity: 1; } }
+@keyframes scale-in { from { opacity: 0; transform: scale(.95); } to { opacity: 1; transform: scale(1); } }
+@keyframes blur-reveal {
+  from { opacity: 0; filter: blur(12px); transform: translateY(14px); }
+  to   { opacity: 1; filter: blur(0);    transform: translateY(0); }
+}
+
+.anim-fade-up  { animation: fade-up    .7s var(--ease-out) both paused; }
+.anim-fade-in  { animation: fade-in    .6s ease         both paused; }
+.anim-scale-in { animation: scale-in   .6s var(--ease-out) both paused; }
+.anim-blur     { animation: blur-reveal .9s var(--ease-out) both paused; }
+
+.delay-0   { animation-delay:   0ms; }
+.delay-100 { animation-delay: 100ms; }
+.delay-150 { animation-delay: 150ms; }
+.delay-200 { animation-delay: 200ms; }
+.delay-250 { animation-delay: 250ms; }
+.delay-300 { animation-delay: 300ms; }
+.delay-350 { animation-delay: 350ms; }
+.delay-400 { animation-delay: 400ms; }
+
+.will-animate { opacity: 0; }
+.in-view .will-animate,
+.will-animate.in-view { animation-play-state: running; }
+
+@media (prefers-reduced-motion: reduce) {
+  [class*="anim-"],
+  .will-animate {
+    animation: none !important;
+    opacity: 1 !important;
+    filter: none !important;
+  }
+}
+
+/* 9. Shared page components ----------------------------------------------
+   Promoted here because more than one page now uses them:
+   - Section rhythm + property cards + the property accordion (home, properties)
+   - Dark-hero layout: text row + full-bleed straddling images (about, properties)
+   Page stylesheets still own page-specific box model (gutters, footer bleed). */
+
+/* Section rhythm */
+.section        { padding: 72px var(--gutter) 0; }
+.section--pb    { padding-bottom: 80px; }
+.section-title  { margin-bottom: 38px; }
+.section-title-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 38px; }
+.section-title-row .section-title { margin-bottom: 0; }
+.text-muted     { color: var(--mid); }
+
+/* Property cards — each card is a link to the property detail page. The image
+   already lifts on hover; a "View Details" chip fades in over it to make the
+   redirect explicit. */
+.prop-cards { display: flex; gap: 16px; }
+
+.prop-card {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 16px;
+  cursor: pointer;
+}
+
+.prop-card__media {
+  position: relative;
+}
+
+.prop-card__cta {
+  position: absolute;
+  left: 16px;
+  bottom: 16px;
+  padding: 8px 20px;
+  border-radius: var(--radius-pill);
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--black);
+  background: rgba(255, 255, 255, .92);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity .25s ease, transform .25s var(--ease-out);
+  pointer-events: none;
+}
+
+.prop-card:hover .prop-card__cta,
+.prop-card:focus-visible .prop-card__cta {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.prop-card img {
+  width: 100%;
+  height: 396px;
+  border-radius: var(--radius-card);
+  object-fit: cover;
+  transition: transform .25s var(--ease-out), box-shadow .25s ease;
+}
+
+.prop-card:hover img {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, .12);
+}
+
+.prop-card__title {
+  display: flex;
+  justify-content: space-between;
+  font-size: 26px;
+  color: var(--black);
+}
+
+.prop-card__meta {
+  display: flex;
+  gap: 40px;
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--mid);
+}
+
+.divider { border: none; border-top: 1px solid #e0e0e0; }
+
+/* Property accordion ("More Iconic Properties") */
+.more-props { padding: 72px var(--gutter) 0; }
+
+.prow { border-top: 1px solid #e0e0e0; }
+.prow:last-of-type { border-bottom: 1px solid #e0e0e0; }
+
+.prow-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 32px;
+  padding: 28px 0;
+  cursor: pointer;
+}
+
+.prow-left {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: 74px;
+  /* Fixed (not min-) width: rows with longer location names would otherwise
+     grow past a min-width and push each description to a different x,
+     breaking the column alignment across rows. */
+  width: 440px;
+  font-size: 26px;
+  white-space: nowrap;
+  color: var(--black);
+}
+
+
+
+.prow-right {
+  display: flex;
+  flex: 1;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.prow-desc {
+  max-width: 394px;
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--mid);
+}
+
+.prow-btn {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border: none;
+  border-radius: var(--radius-icon);
+  background: #e4e4e4;
+  cursor: pointer;
+}
+
+.accordion-body {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows .4s var(--ease-out);
+}
+
+.accordion-body.open { grid-template-rows: 1fr; }
+.accordion-inner { overflow: hidden; }
+
+.prow-expanded {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding-bottom: 28px;
+}
+
+.prow-imgs { display: flex; gap: 16px; }
+
+.prow-imgs .lg {
+  /* Fluid: caps at the Figma 564px but shrinks with the container so the
+     pair never clips off the card's right edge below desktop width. */
+  flex: 0 1 564px;
+  min-width: 0;
+  height: 311px;
+  border-radius: var(--radius-card);
+  object-fit: cover;
+}
+
+.prow-imgs .sm {
+  flex: 1;
+  min-width: 0;
+  height: 311px;
+  border-radius: var(--radius-card);
+  object-fit: cover;
+}
+
+.prow-actions { display: flex; align-items: center; gap: 24px; }
+
+.prow-input {
+  flex: 1;
+  max-width: 680px;
+  height: 50px;
+  padding: 0 21px;
+  border: 1px solid #c0c0c0;
+  border-radius: var(--radius-card);
+  font-family: 'Inter', sans-serif;
+  font-size: 16px;
+  color: var(--black);
+  background: var(--white);
+}
+
+.prop-list-cta { padding: 32px 0 72px; }
+
+/* Dark-hero framed card (shared by about, properties, contact) -------------
+   Mirrors the home hero's box model: a rounded card inset 32px from the
+   viewport that encloses everything — black background, nav, text, and
+   images. Interior padding uses the same scrollbar-proof formula as the home
+   hero so text stays on the content grid and the sticky-nav handoff is
+   pixel-exact. */
+.hero__logo-link { display: flex; align-items: center; }
+
+.hero--framed {
+  position: relative;
+  width: calc(100vw - var(--sbw, 0px) - 2 * var(--frame));
+  margin: var(--frame) calc(50% - (100vw - var(--sbw, 0px)) / 2 + var(--frame)) 0;
+  border-radius: var(--radius-card);
+  background: var(--black);
+  overflow: hidden;
+}
+
+.hero--framed .hero__nav {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 92px;
+  padding: 0 calc(max((100vw - var(--sbw, 0px) - 1440px) / 2, 0px) + var(--gutter) - var(--frame));
+}
+
+.hero-row {
+  display: flex;
+  align-items: center;
+  gap: 106px;
+  padding: 90px calc(max((100vw - var(--sbw, 0px) - 1440px) / 2, 0px) + var(--gutter) - var(--frame)) 0;
+}
+
+.hero-left {
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  gap: 16px;
+  width: 474px;
+  color: var(--white);
+}
+
+.hero-title { font-size: 56px; font-weight: 500; line-height: 1; }
+.hero-sub   { font-size: 16px; font-weight: 400; line-height: 1.6; }
+.hero-body  { max-width: 601px; font-size: 16px; font-weight: 400; line-height: 1.6; color: #939393; }
+
+.img-row {
+  display: flex;
+  align-items: flex-end;
+  gap: 16px;
+  width: 100%;
+  padding-top: 80px;
+}
+
+.img-left,
+.img-right { width: calc(50% - 8px); height: 546px; overflow: hidden; }
+.img-left  { border-top-right-radius: 16px; }
+.img-right { border-top-left-radius: 16px; }
+.img-left img,
+.img-right img { width: 100%; height: 100%; object-fit: cover; }
+
+/* Shared responsive tiers ---------------------------------------------------
+   Tablet (<=1024px) and mobile (<=640px) rules for every shared component.
+   Page stylesheets add their own tiers for page-specific layout. */
+@media (max-width: 1024px) {
+  :root { --frame: 24px; }
+
+  #sticky-nav ul,
+  .hero__nav ul { gap: 32px; }
+
+  .prow-left { width: auto; gap: 24px; }
+  .prow-header { flex-direction: column; gap: 16px; }
+  /* Keep the image pair side-by-side through tablet — stacking this early
+     leaves one image looming much larger than the other. They only stack at
+     the mobile tier below. */
+  .prow-imgs .lg { flex: 0 1 50%; }
+  .prow-imgs .lg,
+  .prow-imgs .sm { height: clamp(180px, 28vw, 311px); }
+  .prow-actions { flex-direction: column; align-items: stretch; }
+
+  .prop-card img { height: 320px; }
+
+  .img-left,
+  .img-right { height: 400px; }
+
+  .footer { height: 720px; }
+  .footer__top { flex-direction: column; gap: 40px; }
+  .footer__nav-cols { flex-wrap: wrap; gap: 40px; }
+}
+
+@media (max-width: 640px) {
+  :root { --frame: 16px; }
+
+  .logo { width: 178px; height: 37px; }
+
+  /* The link row can't fit a phone; the hamburger takes over. */
+  #sticky-nav ul,
+  .hero__nav ul { display: none; }
+  .nav-burger { display: inline-flex; }
+
+  .section { padding-top: 56px; }
+  .section-title { font-size: 32px; }
+  .section-title-row { flex-wrap: wrap; gap: 12px 16px; }
+  .hero-title { font-size: 38px; }
+
+  .prop-cards { flex-direction: column; }
+  .prop-card img { height: 300px; }
+  .prop-card__title { font-size: 22px; }
+  .prop-card__meta { gap: 24px; }
+
+  .prow-left { font-size: 22px; white-space: normal; }
+  .more-props { padding-top: 56px; }
+
+  /* Property rows: images finally stack at the mobile tier. */
+  .prow-imgs { flex-direction: column; }
+  .prow-imgs .lg,
+  .prow-imgs .sm { flex: none; width: 100%; height: auto; aspect-ratio: 16 / 10; }
+
+  /* Framed-hero image pair (about, properties): two side-by-side photos
+     compress into slivers on a phone — show a single full-width photo. */
+  .img-right { display: none; }
+  .img-left { width: 100%; border-top-left-radius: 16px; }
+
+  .img-left,
+  .img-right { height: 220px; }
+
+  .footer { height: 640px; }
+  .footer__meta { margin-top: 48px; }
+  /* The shared .logo rule above fixes height for the nav mark; the footer
+     wordmark must keep its own aspect ratio or the SVG letterboxes (renders
+     smaller and horizontally centered inside the box). */
+  .logo--footer { width: 280px; height: auto; }
+}
+
+/* Embedded in the SellyAgent template showcase: interaction is
+   look-and-scroll only, so suppress click affordances. */
+.is-embedded a,
+.is-embedded button {
+  cursor: default;
+}
+
+/* Hide the scrollbar in the showcase frames — scrolling still works. */
+.is-embedded {
+  scrollbar-width: none;
+}
+.is-embedded::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}

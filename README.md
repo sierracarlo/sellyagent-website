@@ -1,0 +1,27 @@
+# SellyAgent Marketing Site
+
+Static HTML/CSS/JS — open `index.html` in a browser. No build step.
+
+## Placeholder swaps
+
+| File | What it's for | Size / ratio |
+| --- | --- | --- |
+| `assets/images/hero-house.png` | Hero house photo (parallax layer) — **PNG with transparent top** so the headline shows through at rest | 1606×919 |
+| `assets/images/dashboard.png` | Product dashboard screenshot | 910×398 shown (supply 2× ≈ 1820×796) |
+| `assets/images/template-1.jpg` … `template-3.jpg` | Website template previews (carousel) | 677×351 (supply 2×) |
+| `assets/images/feature-websites.jpg` / `feature-social.jpg` / `feature-email.jpg` / `feature-trestle.jpg` | Feature-linked images | ~560×398 (supply 2×) |
+| `assets/images/cta-house.jpg` | Bottom CTA cliffside house | 1440×823 |
+| `assets/images/logo-1.png` … `logo-7.png` | Partner/brokerage logos | Varying — see current files |
+| `assets/images/editor-photo.png` | Fixed photo inside the editor's base design | 1080×740 (JPG fine — update the src in editor.js if the extension changes) |
+| `assets/images/social-1.png` … `social-10.png` | Social post templates (social-media.html strip) | 275×344 (supplied at 2× = 550×688) |
+| `assets/images/website-hero.jpg` | Agent website screenshot (professional-websites.html hero) | 1143×593 (supply 2× = 2286×1186) |
+| `assets/images/email-1.jpg` … `email-4.jpg` | Email campaign template previews (email-marketing.html hero) | 271×410 (supply 2× = 542×820) |
+| `assets/images/mls-card-1.jpg` … `mls-card-5.jpg` | MLS listing photos (trestle-integration.html hero strip) | 393×290 (supplied at 2× = 786×580) |
+| `assets/images/portal-1.jpg` … `portal-6.jpg` | Listing photos in the map portal demo (trestle-integration.html) | 382×280 (supplied at 2× = 764×560) |
+| `assets/video/product-demo.mp4` | Product demo video | 1144×700, H.264 + AAC |
+
+The SellyAgent logo (`Selly-Logo.svg`) is inlined in `index.html` (header + footer) with `fill="currentColor"` so the nav color flip works automatically.
+
+Note: audible autoplay is blocked by most browsers until the user interacts with the page — the video falls back to muted autoplay and the corner button unmutes at 50% volume.
+
+The contact form (`contact.html`) validates client-side and shows a success message only — wire the real submission (Formspree, Cloudflare Worker, etc.) inside `handleContactSubmit` in `assets/js/main.js`.

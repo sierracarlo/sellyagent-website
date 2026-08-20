@@ -1,0 +1,191 @@
+/* ==========================================================================
+   contact.css — styles unique to the contact page (contact.html)
+   Depends on base.css for tokens, buttons, navs, footer internals, animations,
+   and the shared accordion mechanism (§9: .prow / .accordion-body / .prow-btn).
+   ========================================================================== */
+
+:root {
+  --gutter: 148px;   /* matches the interior-page gutter (about, properties) */
+}
+
+/* Hero — the framed dark card and its nav live in base.css §9
+   (.hero--framed); below is the contact-specific split of image + form. */
+.contact-hero {
+  display: flex;
+  align-items: flex-start;
+  gap: 74px;
+  padding: 100px calc(max((100vw - var(--sbw, 0px) - 1440px) / 2, 0px) + var(--gutter) - var(--frame)) 0 0;
+}
+
+.contact-hero__media {
+  /* Grows to fill whatever the card leaves after the fixed-width form, so the
+     image always runs flush to the card's left edge at any viewport size. */
+  flex: 1;
+  min-width: 0;
+  height: 644px;
+  border-top-right-radius: var(--radius-card);
+  overflow: hidden;
+}
+
+.contact-hero__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Contact form ----------------------------------------------------------- */
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  gap: 32px;
+  width: 506px;
+}
+
+.contact-form__title {
+  font-size: 56px;
+  font-weight: 500;
+  line-height: 1;
+  color: var(--white);
+}
+
+.contact-form__group {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.contact-form__label {
+  padding: 0;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.6;
+  color: var(--white);
+}
+
+.contact-input {
+  width: 100%;
+  padding: 8px 16px;
+  border: 1px solid #6d6d6d;
+  border-radius: 8px;
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--white);
+  background: transparent;
+  transition: border-color .2s;
+}
+
+.contact-input::placeholder { color: #6d6d6d; }
+.contact-input:focus {
+  outline: none;
+  border-color: var(--white);
+}
+
+.contact-input--area {
+  height: 147px;
+  resize: vertical;
+}
+
+.contact-form__submit {
+  width: 100%;
+}
+
+/* FAQs ------------------------------------------------------------------- */
+.faqs {
+  display: flex;
+  flex-direction: column;
+  gap: 34px;
+  padding: 0 var(--gutter);
+}
+
+.faqs__row {
+  display: flex;
+  align-items: flex-start;
+  gap: 91px;
+}
+
+.faqs__title {
+  flex-shrink: 0;
+  width: 489px;
+  font-size: 48px;
+  font-weight: 500;
+  line-height: normal;
+  color: var(--black);
+}
+
+.faqs__list {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 32px;
+  min-width: 0;
+}
+
+/* One FAQ row reuses the shared accordion (.prow + .accordion-body + the
+   .prow-btn/.prow-icon toggle wired by site.js), but the property accordion's
+   top border and split layout don't apply here: a question sits opposite the
+   toggle, with a single rule below each row. */
+.faq-row {
+  border-top: 0;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.faq-row__head {
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 0;
+}
+
+.faq-row__q {
+  font-size: 26px;
+  line-height: normal;
+  color: var(--black);
+}
+
+.faq-row__a {
+  padding-bottom: 25px;
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--mid);
+}
+
+/* Footer box model (contact): full-bleed minus the 32px page frame. */
+.body-wrap {
+  position: relative;
+  padding-top: 100px;
+  background: var(--white);
+}
+
+.footer {
+  width: calc(100vw - var(--sbw, 0px) - 2 * var(--frame));
+  margin: 120px calc(50% - (100vw - var(--sbw, 0px)) / 2 + var(--frame)) var(--frame);
+}
+
+/* Responsive ------------------------------------------------------------- */
+@media (max-width: 1024px) {
+  :root { --gutter: 64px; }
+  .contact-hero { flex-direction: column; gap: 40px; padding: 60px calc(var(--gutter) - var(--frame)) 60px; }
+  .contact-hero__media {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 712 / 644;
+    border-top-left-radius: var(--radius-card);
+  }
+  .contact-form { width: 100%; }
+  .faqs__row { flex-direction: column; gap: 40px; }
+  .faqs__title,
+  .faqs__list { width: 100%; }
+}
+
+@media (max-width: 640px) {
+  :root { --gutter: 32px; }
+  .contact-form__title { font-size: 36px; }
+  .contact-hero__media { aspect-ratio: 4 / 3; }
+  .faqs__title { font-size: 32px; }
+  .faq-row__q { font-size: 20px; }
+  .footer { margin-top: 80px; }
+}

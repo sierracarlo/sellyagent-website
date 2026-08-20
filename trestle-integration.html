@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MLS Integration - Selly</title>
+  <meta name="description" content="Automatically synchronize your Trestle MLS listings across your website, email campaigns, and social media.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,300;6..72,400;6..72,500&family=Manrope:wght@500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+
+  <!-- ============ Navigation ============ -->
+  <header class="site-header" id="siteHeader">
+    <a class="site-header__logo" href="index.html" aria-label="Selly home">
+      <svg width="76" height="38" aria-hidden="true" viewBox="0 0 296.74 147.49" xmlns="http://www.w3.org/2000/svg">
+<path fill="currentColor" d="M105.09,104.96c-15.61,0-26.2-13.12-26.2-35.18v-2.36h48.58v-1.18c0-16.63-9.86-29.59-28.27-29.59-19.43,0-35.04,18.25-35.04,42.09,0,21.5,13.26,37.98,34,37.98,15.61,0,26.95-10.14,30.33-23.84l-.58-.3c-5.15,7.95-12.96,12.38-22.82,12.38ZM97.29,39.01c10.74,0,15.01,11.48,15.01,25.9h-33.26c1.32-14.12,7.95-25.9,18.25-25.9Z"/>
+<path fill="currentColor" d="M160.26,106.86V0h-.6l-25.6,7.07v.58l9.71,6.19v93.03c0,5.75-2.8,6.33-10.16,6.79v1.62h36.82v-1.62c-7.37-.46-10.16-1.04-10.16-6.79Z"/>
+<path fill="currentColor" d="M201.74,106.86V0h-.58l-24.7,7.07v.58l8.79,6.19v93.03c0,5.75-2.8,6.33-10.14,6.79v1.62h36.8v-1.62c-7.37-.46-10.16-1.04-10.16-6.79Z"/>
+<path fill="currentColor" d="M262.12,98.34l-19.15-49.62c-.58-1.62-.88-2.94-.88-4.11,0-3.39,3.24-4.57,10.6-5.01v-1.46h-37.1v1.46c5.45,1.04,6.77,2.51,8.98,7.23l30.61,69.62-2.94,7.07c-4.27,9.86-9.86,12.66-17.53,12.66-4.25,0-6.77-.9-9.41-1.62v5.43c1.18,4.57,5.73,7.51,10.44,7.51,8.09,0,12.66-6.17,17.37-18.11l24.03-62.71-1.8-4.62-13.24,36.28Z"/>
+<path fill="currentColor" d="M280.66,22.93c-5.28,13.25-2.84,10.81-16.08,16.08,13.25,5.28,10.81,2.84,16.08,16.08,5.28-13.25,2.84-10.81,16.08-16.08-13.25-5.28-10.81-2.84-16.08-16.08Z"/>
+<path fill="currentColor" d="M14.13,51.96c0-7.8,5.45-13.25,13.69-13.25,11.48,0,19.58,11.48,21.2,22.67h1.18v-18.55c-6.04-3.83-12.95-6.18-21.64-6.18-14.43,0-26.64,8.69-26.64,22.96,0,26.79,40.33,19.73,40.33,40.04,0,9.57-6.92,14.87-15.31,14.87-12.36,0-22.38-11.19-25.61-26.35H0l.88,21.35c5.74,4.27,15.6,7.21,25.32,7.21,16.63,0,28.85-9.57,28.85-24.29,0-27.53-40.92-19.58-40.92-40.48Z"/>
+</svg>
+    </a>
+    <nav class="site-header__nav" aria-label="Features">
+        <a class="site-header__nav-link" href="professional-websites.html">Professional Websites</a>
+        <a class="site-header__nav-link" href="email-marketing.html">Email Campaigns</a>
+        <a class="site-header__nav-link" href="social-media.html">Social Media Marketing</a>
+        <a class="site-header__nav-link" href="trestle-integration.html" aria-current="page">MLS Integration</a>
+    </nav>
+    <button class="site-header__menu" type="button" id="menuToggle" aria-label="Open menu" aria-expanded="false" aria-controls="navMenu">
+      <span class="site-header__menu-bar"></span>
+      <span class="site-header__menu-bar"></span>
+      <span class="site-header__menu-bar"></span>
+    </button>
+  </header>
+
+  <!-- ============ Nav Menu Overlay ============ -->
+  <nav class="nav-menu" id="navMenu" aria-label="Site menu" aria-hidden="true">
+    <ul class="nav-menu__links">
+      <li><a class="nav-menu__link nav-menu__link--signin" href="#">Sign in</a></li>
+      <li><a class="nav-menu__link" href="professional-websites.html">Professional Websites</a></li>
+      <li><a class="nav-menu__link" href="email-marketing.html">Email Campaigns</a></li>
+      <li><a class="nav-menu__link" href="social-media.html">Social Media Marketing</a></li>
+      <li><a class="nav-menu__link" href="trestle-integration.html">MLS Integration</a></li>
+      <li><a class="nav-menu__link" href="contact.html">Contact</a></li>
+    </ul>
+  </nav>
+  <main>
+    <!-- ============ Hero ============ -->
+    <section class="social-hero" data-nav-flip="810">
+      <div class="social-hero__head" data-parallax-text>
+        <h1 class="social-hero__title reveal">A Smarter Way to Manage Listings</h1>
+        <p class="social-hero__copy reveal">Automatically synchronize your Trestle MLS listings and eliminate repetitive updates across your website, email campaigns, and social media.</p>
+        <a class="btn reveal" href="index.html#cta">Join Waitlist</a>
+      </div>
+
+      <div class="post-strip post-strip--mls reveal" data-template-strip aria-label="Synchronized MLS listings">
+        <div class="post-strip__track">
+          <article class="mls-card">
+            <div class="mls-card__media">
+              <img src="assets/images/mls-card-1.jpg" alt="Listing at 485 W Matheson Dr" width="393" height="290" draggable="false">
+              <span class="mls-card__badge">Active</span>
+            </div>
+            <div class="mls-card__body">
+              <p class="mls-card__price">$237,000,000</p>
+              <p class="mls-card__specs">5bd <span class="mls-card__dot"></span> 9ba <span class="mls-card__dot"></span> 103,775 sqft</p>
+              <p class="mls-card__address">485 W Matheson Dr, Key Biscayne, FL 33149</p>
+              <p class="mls-card__mls">MLS A12005335</p>
+            </div>
+          </article>
+          <article class="mls-card">
+            <div class="mls-card__media">
+              <img src="assets/images/mls-card-2.jpg" alt="Listing at 600-620 Arvida Pkwy" width="393" height="290" draggable="false">
+              <span class="mls-card__badge">Active</span>
+            </div>
+            <div class="mls-card__body">
+              <p class="mls-card__price">$175,000,000</p>
+              <p class="mls-card__specs">10bd <span class="mls-card__dot"></span> 18ba <span class="mls-card__dot"></span> 94,961 sqft</p>
+              <p class="mls-card__address">600-620 Arvida Pkwy, Coral Gables, FL 33156</p>
+              <p class="mls-card__mls">MLS A11955319</p>
+            </div>
+          </article>
+          <article class="mls-card">
+            <div class="mls-card__media">
+              <img src="assets/images/mls-card-3.jpg" alt="Listing at 18 La Gorce Cir" width="393" height="290" draggable="false">
+              <span class="mls-card__badge">Active</span>
+            </div>
+            <div class="mls-card__body">
+              <p class="mls-card__price">$110,000,000</p>
+              <p class="mls-card__specs">9bd <span class="mls-card__dot"></span> 12ba <span class="mls-card__dot"></span> 21,470 sqft</p>
+              <p class="mls-card__address">18 La Gorce Cir, Miami Beach, FL 33141</p>
+              <p class="mls-card__mls">MLS A11902247</p>
+            </div>
+          </article>
+          <article class="mls-card">
+            <div class="mls-card__media">
+              <img src="assets/images/mls-card-4.jpg" alt="Listing at 6360 N Bay Rd" width="393" height="290" draggable="false">
+              <span class="mls-card__badge">Active</span>
+            </div>
+            <div class="mls-card__body">
+              <p class="mls-card__price">$67,500,000</p>
+              <p class="mls-card__specs">7bd <span class="mls-card__dot"></span> 11ba <span class="mls-card__dot"></span> 15,332 sqft</p>
+              <p class="mls-card__address">6360 N Bay Rd, Miami Beach, FL 33141</p>
+              <p class="mls-card__mls">MLS A11873001</p>
+            </div>
+          </article>
+          <article class="mls-card">
+            <div class="mls-card__media">
+              <img src="assets/images/mls-card-5.jpg" alt="Listing at 342 Ocean Blvd" width="393" height="290" draggable="false">
+              <span class="mls-card__badge">Active</span>
+            </div>
+            <div class="mls-card__body">
+              <p class="mls-card__price">$49,900,000</p>
+              <p class="mls-card__specs">6bd <span class="mls-card__dot"></span> 8ba <span class="mls-card__dot"></span> 12,844 sqft</p>
+              <p class="mls-card__address">342 Ocean Blvd, Golden Beach, FL 33160</p>
+              <p class="mls-card__mls">MLS A11841562</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ Portal (interactive map demo) ============ -->
+    <section class="portal-section">
+      <div class="portal-section__intro reveal">
+        <h2 class="portal-section__title">One Connection.<br>Complete Consistency.</h2>
+        <p class="portal-section__copy">Managing listings across multiple platforms often leads to duplicate work and inconsistent information.</p>
+      </div>
+
+      <div class="portal reveal" id="mlsPortal">
+        <!-- Filter bar (visual demo — controls are display-only) -->
+        <div class="portal__filters" aria-hidden="true">
+          <div class="portal__search">
+            <svg viewBox="0 0 16 16" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="7" cy="7" r="5"/><path d="m14 14-3.2-3.2"/></svg>
+            <span>Search neighborhood, city, ZIP</span>
+          </div>
+          <span class="portal__filter is-active">Single Family <svg viewBox="0 0 10 6" width="10" height="6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="m1 1 4 4 4-4"/></svg></span>
+          <span class="portal__filter">Price <svg viewBox="0 0 10 6" width="10" height="6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="m1 1 4 4 4-4"/></svg></span>
+          <span class="portal__filter">Beds <svg viewBox="0 0 10 6" width="10" height="6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="m1 1 4 4 4-4"/></svg></span>
+          <span class="portal__filter">Baths <svg viewBox="0 0 10 6" width="10" height="6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="m1 1 4 4 4-4"/></svg></span>
+          <span class="portal__filter">
+            <svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M2 4h12M4.5 8h7M6.5 12h3"/></svg>
+            More Filters <span class="portal__filter-count">1</span>
+          </span>
+          <span class="portal__filters-spacer"></span>
+          <span class="portal__filter">Price <svg viewBox="0 0 10 12" width="9" height="11" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 1v10m0 0 3.5-3.5M5 11 1.5 7.5"/></svg></span>
+          <span class="portal__view-toggle">
+            <svg viewBox="0 0 16 16" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="1.5" y="2" width="4" height="4" rx="1"/><path d="M8.5 3h6M8.5 5h4"/><rect x="1.5" y="9.5" width="4" height="4" rx="1"/><path d="M8.5 10.5h6M8.5 12.5h4"/></svg>
+            <svg class="is-active" viewBox="0 0 16 16" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="1.5" y="1.5" width="5.5" height="5.5" rx="1"/><rect x="9" y="1.5" width="5.5" height="5.5" rx="1"/><rect x="1.5" y="9" width="5.5" height="5.5" rx="1"/><rect x="9" y="9" width="5.5" height="5.5" rx="1"/></svg>
+          </span>
+          <span class="portal__filter is-active">
+            <svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"><path d="M5.5 3 1.5 4.5v8.5L5.5 11.5l5 1.5 4-1.5V3l-4 1.5-5-1.5zM5.5 3v8.5M10.5 4.5V13"/></svg>
+            Map
+          </span>
+        </div>
+
+        <div class="portal__body">
+          <!-- Results panel: scroll + hover only -->
+          <aside class="portal__results" aria-label="Listing results">
+            <p class="portal__count">18,587 homes</p>
+            <div class="portal__grid">
+              <article class="portal-card">
+                <div class="portal-card__media">
+                  <img src="assets/images/portal-1.jpg" alt="" width="382" height="280" loading="lazy" draggable="false">
+                  <span class="portal-card__badge">Active</span>
+                  <span class="portal-card__counter">1 / 82</span>
+                  <span class="portal-card__dots" aria-hidden="true"></span>
+                </div>
+                <div class="portal-card__body">
+                  <p class="portal-card__price">$237,000,000</p>
+                  <p class="portal-card__specs">5 bd &middot; 9 ba &middot; 103,775 sqft <span class="portal-card__chip">Residential</span></p>
+                  <p class="portal-card__address">485 W Matheson Dr, Key Biscayne, FL 33149</p>
+                  <p class="portal-card__mls">MLS&reg; A12005335</p>
+                </div>
+              </article>
+              <article class="portal-card">
+                <div class="portal-card__media">
+                  <img src="assets/images/portal-2.jpg" alt="" width="382" height="280" loading="lazy" draggable="false">
+                  <span class="portal-card__badge">Active</span>
+                  <span class="portal-card__counter">1 / 25</span>
+                  <span class="portal-card__dots" aria-hidden="true"></span>
+                </div>
+                <div class="portal-card__body">
+                  <p class="portal-card__price">$175,000,000</p>
+                  <p class="portal-card__specs">10 bd &middot; 18 ba &middot; 94,961 sqft <span class="portal-card__chip">Residential</span></p>
+                  <p class="portal-card__address">600-620 Arvida Pkwy, Coral Gables, FL 33156</p>
+                  <p class="portal-card__mls">MLS&reg; A11955319</p>
+                </div>
+              </article>
+              <article class="portal-card">
+                <div class="portal-card__media">
+                  <img src="assets/images/portal-3.jpg" alt="" width="382" height="280" loading="lazy" draggable="false">
+                  <span class="portal-card__badge">Active</span>
+                  <span class="portal-card__counter">1 / 100</span>
+                  <span class="portal-card__dots" aria-hidden="true"></span>
+                </div>
+                <div class="portal-card__body">
+                  <p class="portal-card__price">$110,000,000</p>
+                  <p class="portal-card__specs">9 bd &middot; 12 ba &middot; 21,470 sqft <span class="portal-card__chip">Residential</span></p>
+                  <p class="portal-card__address">18 La Gorce Cir, Miami Beach, FL 33141</p>
+                  <p class="portal-card__mls">MLS&reg; A11902247</p>
+                </div>
+              </article>
+              <article class="portal-card">
+                <div class="portal-card__media">
+                  <img src="assets/images/portal-4.jpg" alt="" width="382" height="280" loading="lazy" draggable="false">
+                  <span class="portal-card__badge">Active</span>
+                  <span class="portal-card__counter">1 / 34</span>
+                  <span class="portal-card__dots" aria-hidden="true"></span>
+                </div>
+                <div class="portal-card__body">
+                  <p class="portal-card__price">$110,000,000</p>
+                  <p class="portal-card__specs">8 bd &middot; 10 ba &middot; 19,062 sqft <span class="portal-card__chip">Residential</span></p>
+                  <p class="portal-card__address">30 Palm Ave, Miami Beach, FL 33139</p>
+                  <p class="portal-card__mls">MLS&reg; A11890415</p>
+                </div>
+              </article>
+              <article class="portal-card">
+                <div class="portal-card__media">
+                  <img src="assets/images/portal-5.jpg" alt="" width="382" height="280" loading="lazy" draggable="false">
+                  <span class="portal-card__badge">Active</span>
+                  <span class="portal-card__counter">1 / 48</span>
+                  <span class="portal-card__dots" aria-hidden="true"></span>
+                </div>
+                <div class="portal-card__body">
+                  <p class="portal-card__price">$67,500,000</p>
+                  <p class="portal-card__specs">7 bd &middot; 11 ba &middot; 15,332 sqft <span class="portal-card__chip">Residential</span></p>
+                  <p class="portal-card__address">6360 N Bay Rd, Miami Beach, FL 33141</p>
+                  <p class="portal-card__mls">MLS&reg; A11873001</p>
+                </div>
+              </article>
+              <article class="portal-card">
+                <div class="portal-card__media">
+                  <img src="assets/images/portal-6.jpg" alt="" width="382" height="280" loading="lazy" draggable="false">
+                  <span class="portal-card__badge">Active</span>
+                  <span class="portal-card__counter">1 / 61</span>
+                  <span class="portal-card__dots" aria-hidden="true"></span>
+                </div>
+                <div class="portal-card__body">
+                  <p class="portal-card__price">$49,900,000</p>
+                  <p class="portal-card__specs">6 bd &middot; 8 ba &middot; 12,844 sqft <span class="portal-card__chip">Residential</span></p>
+                  <p class="portal-card__address">342 Ocean Blvd, Golden Beach, FL 33160</p>
+                  <p class="portal-card__mls">MLS&reg; A11841562</p>
+                </div>
+              </article>
+            </div>
+          </aside>
+
+          <!-- Map: zoom + pan; pins hover only (not clickable) -->
+          <div class="portal__map" id="portalMap" role="img" aria-label="Map of Miami with sample listing prices">
+            <svg class="portal__svg" viewBox="0 0 1090 640" preserveAspectRatio="xMidYMid slice" font-family="Manrope, sans-serif" aria-hidden="true"><g data-map-scene><rect x="-300" y="-220" width="1690" height="1080" fill="#9ddce4"/><path d="M-300,-220 L710,-220 C706,-140 700,-60 690,0 C700,60 688,120 676,170 C664,225 668,280 655,330 C642,385 630,420 612,455 C596,486 585,505 560,530 C540,550 525,575 515,600 L505,640 C495,700 480,760 460,810 L440,860 L-300,860 Z" fill="#eaf0f2"/><rect x="-300" y="-220" width="320" height="1080" fill="#b9e5c9"/><path d="M0,60 C60,60 90,120 80,200 C72,270 90,340 70,420 C55,485 60,560 40,640 L0,640 Z" fill="#b9e5c9"/><rect x="0" y="-220" width="140" height="290" fill="#b9e5c9"/><path d="M-300,640 C-100,650 80,660 180,700 C240,724 260,780 250,860 L-300,860 Z" fill="#b9e5c9"/><rect x="150" y="30" width="70" height="34" rx="8" fill="#c4e9d2"/><rect x="255" y="12" width="60" height="26" rx="8" fill="#c4e9d2"/><rect x="470" y="40" width="54" height="26" rx="8" fill="#c4e9d2"/><rect x="160" y="240" width="46" height="30" rx="8" fill="#c4e9d2"/><rect x="500" y="160" width="44" height="26" rx="8" fill="#c4e9d2"/><rect x="230" y="330" width="52" height="30" rx="8" fill="#c4e9d2"/><rect x="430" y="250" width="40" height="24" rx="8" fill="#c4e9d2"/><rect x="330" y="470" width="56" height="30" rx="8" fill="#c4e9d2"/><rect x="150" y="520" width="48" height="28" rx="8" fill="#c4e9d2"/><rect x="360" y="600" width="60" height="26" rx="8" fill="#c4e9d2"/><rect x="480" y="330" width="36" height="22" rx="8" fill="#c4e9d2"/><rect x="560" y="220" width="34" height="20" rx="8" fill="#c4e9d2"/><rect x="90" y="300" width="40" height="46" rx="8" fill="#c4e9d2"/><rect x="60" y="470" width="46" height="40" rx="8" fill="#c4e9d2"/><rect x="520" y="560" width="44" height="26" rx="8" fill="#c4e9d2"/><rect x="410" y="90" width="38" height="22" rx="8" fill="#c4e9d2"/><rect x="300" y="220" width="34" height="20" rx="8" fill="#c4e9d2"/><rect x="300" y="-180" width="60" height="30" rx="8" fill="#c4e9d2"/><rect x="470" y="-140" width="50" height="26" rx="8" fill="#c4e9d2"/><rect x="560" y="-80" width="44" height="24" rx="8" fill="#c4e9d2"/><rect x="200" y="-90" width="54" height="28" rx="8" fill="#c4e9d2"/><rect x="620" y="-180" width="40" height="22" rx="8" fill="#c4e9d2"/><rect x="320" y="690" width="54" height="26" rx="8" fill="#c4e9d2"/><rect x="420" y="730" width="46" height="24" rx="8" fill="#c4e9d2"/><rect x="360" y="790" width="60" height="28" rx="8" fill="#c4e9d2"/><rect x="260" y="640" width="44" height="22" rx="8" fill="#c4e9d2"/><ellipse cx="523" cy="593" rx="13" ry="7" fill="#aee0ea"/><ellipse cx="580" cy="214" rx="8" ry="8" fill="#aee0ea"/><ellipse cx="547" cy="210" rx="7" ry="7" fill="#aee0ea"/><ellipse cx="370" cy="165" rx="7" ry="8" fill="#aee0ea"/><ellipse cx="102" cy="425" rx="13" ry="9" fill="#aee0ea"/><ellipse cx="221" cy="35" rx="14" ry="4" fill="#aee0ea"/><ellipse cx="120" cy="56" rx="9" ry="5" fill="#aee0ea"/><ellipse cx="90" cy="495" rx="11" ry="7" fill="#aee0ea"/><ellipse cx="260" cy="551" rx="9" ry="9" fill="#aee0ea"/><ellipse cx="361" cy="531" rx="6" ry="9" fill="#aee0ea"/><ellipse cx="147" cy="488" rx="16" ry="6" fill="#aee0ea"/><ellipse cx="476" cy="584" rx="7" ry="9" fill="#aee0ea"/><ellipse cx="320" cy="342" rx="9" ry="8" fill="#aee0ea"/><ellipse cx="355" cy="50" rx="7" ry="8" fill="#aee0ea"/><ellipse cx="170" cy="430" rx="7" ry="6" fill="#aee0ea"/><ellipse cx="455" cy="88" rx="6" ry="9" fill="#aee0ea"/><ellipse cx="60" cy="238" rx="9" ry="4" fill="#aee0ea"/><ellipse cx="541" cy="404" rx="12" ry="7" fill="#aee0ea"/><ellipse cx="134" cy="599" rx="16" ry="5" fill="#aee0ea"/><ellipse cx="336" cy="364" rx="7" ry="6" fill="#aee0ea"/><ellipse cx="400" cy="35" rx="12" ry="4" fill="#aee0ea"/><ellipse cx="197" cy="272" rx="7" ry="4" fill="#aee0ea"/><ellipse cx="121" cy="496" rx="13" ry="5" fill="#aee0ea"/><ellipse cx="632" cy="212" rx="13" ry="8" fill="#aee0ea"/><ellipse cx="255" cy="154" rx="12" ry="9" fill="#aee0ea"/><ellipse cx="452" cy="139" rx="12" ry="7" fill="#aee0ea"/><ellipse cx="277" cy="20" rx="10" ry="8" fill="#aee0ea"/><ellipse cx="371" cy="40" rx="9" ry="5" fill="#aee0ea"/><ellipse cx="463" cy="610" rx="7" ry="4" fill="#aee0ea"/><ellipse cx="209" cy="238" rx="13" ry="6" fill="#aee0ea"/><ellipse cx="69" cy="356" rx="10" ry="7" fill="#aee0ea"/><ellipse cx="135" cy="96" rx="7" ry="5" fill="#aee0ea"/><ellipse cx="308" cy="35" rx="15" ry="6" fill="#aee0ea"/><ellipse cx="440" cy="484" rx="8" ry="8" fill="#aee0ea"/><ellipse cx="407" cy="694" rx="8" ry="9" fill="#aee0ea"/><ellipse cx="238" cy="-121" rx="9" ry="5" fill="#aee0ea"/><ellipse cx="538" cy="-39" rx="12" ry="7" fill="#aee0ea"/><ellipse cx="469" cy="-180" rx="7" ry="4" fill="#aee0ea"/><ellipse cx="179" cy="-69" rx="12" ry="6" fill="#aee0ea"/><ellipse cx="375" cy="785" rx="14" ry="5" fill="#aee0ea"/><ellipse cx="528" cy="-183" rx="13" ry="8" fill="#aee0ea"/><ellipse cx="494" cy="-43" rx="10" ry="5" fill="#aee0ea"/><ellipse cx="264" cy="677" rx="12" ry="7" fill="#aee0ea"/><ellipse cx="287" cy="-185" rx="10" ry="6" fill="#aee0ea"/><ellipse cx="431" cy="-54" rx="11" ry="5" fill="#aee0ea"/><ellipse cx="616" cy="-85" rx="15" ry="4" fill="#aee0ea"/><ellipse cx="169" cy="751" rx="6" ry="4" fill="#aee0ea"/><ellipse cx="466" cy="679" rx="7" ry="9" fill="#aee0ea"/><ellipse cx="319" cy="-119" rx="7" ry="7" fill="#aee0ea"/><ellipse cx="439" cy="-106" rx="11" ry="6" fill="#aee0ea"/><ellipse cx="300" cy="180" rx="26" ry="14" fill="#aee0ea"/><ellipse cx="360" cy="140" rx="20" ry="12" fill="#aee0ea"/><ellipse cx="240" cy="120" rx="24" ry="12" fill="#aee0ea"/><ellipse cx="420" cy="180" rx="18" ry="10" fill="#aee0ea"/><ellipse cx="200" cy="420" rx="22" ry="12" fill="#aee0ea"/><ellipse cx="320" cy="380" rx="18" ry="10" fill="#aee0ea"/><ellipse cx="440" cy="540" rx="20" ry="10" fill="#aee0ea"/><ellipse cx="520" cy="90" rx="18" ry="10" fill="#aee0ea"/><ellipse cx="430" cy="-60" rx="24" ry="13" fill="#aee0ea"/><ellipse cx="540" cy="-160" rx="20" ry="11" fill="#aee0ea"/><ellipse cx="390" cy="700" rx="22" ry="12" fill="#aee0ea"/><clipPath id="landClip"><path d="M-300,-220 L710,-220 C706,-140 700,-60 690,0 C700,60 688,120 676,170 C664,225 668,280 655,330 C642,385 630,420 612,455 C596,486 585,505 560,530 C540,550 525,575 515,600 L505,640 C495,700 480,760 460,810 L440,860 L-300,860 Z"/></clipPath><g clip-path="url(#landClip)" stroke="#ffffff" stroke-width="1.4"><line x1="-268" y1="-220" x2="-284" y2="860"/><line x1="-230" y1="-220" x2="-246" y2="860"/><line x1="-192" y1="-220" x2="-208" y2="860"/><line x1="-154" y1="-220" x2="-170" y2="860"/><line x1="-116" y1="-220" x2="-132" y2="860"/><line x1="-78" y1="-220" x2="-94" y2="860"/><line x1="-40" y1="-220" x2="-56" y2="860"/><line x1="-2" y1="-220" x2="-18" y2="860"/><line x1="36" y1="-220" x2="20" y2="860"/><line x1="74" y1="-220" x2="58" y2="860"/><line x1="112" y1="-220" x2="96" y2="860"/><line x1="150" y1="-220" x2="134" y2="860"/><line x1="188" y1="-220" x2="172" y2="860"/><line x1="226" y1="-220" x2="210" y2="860"/><line x1="264" y1="-220" x2="248" y2="860"/><line x1="302" y1="-220" x2="286" y2="860"/><line x1="340" y1="-220" x2="324" y2="860"/><line x1="378" y1="-220" x2="362" y2="860"/><line x1="416" y1="-220" x2="400" y2="860"/><line x1="454" y1="-220" x2="438" y2="860"/><line x1="492" y1="-220" x2="476" y2="860"/><line x1="530" y1="-220" x2="514" y2="860"/><line x1="568" y1="-220" x2="552" y2="860"/><line x1="606" y1="-220" x2="590" y2="860"/><line x1="644" y1="-220" x2="628" y2="860"/><line x1="682" y1="-220" x2="666" y2="860"/><line x1="-300" y1="-198" x2="720" y2="-198"/><line x1="-300" y1="-162" x2="720" y2="-162"/><line x1="-300" y1="-126" x2="720" y2="-126"/><line x1="-300" y1="-90" x2="720" y2="-90"/><line x1="-300" y1="-54" x2="720" y2="-54"/><line x1="-300" y1="-18" x2="720" y2="-18"/><line x1="-300" y1="18" x2="720" y2="18"/><line x1="-300" y1="54" x2="720" y2="54"/><line x1="-300" y1="90" x2="720" y2="90"/><line x1="-300" y1="126" x2="720" y2="126"/><line x1="-300" y1="162" x2="720" y2="162"/><line x1="-300" y1="198" x2="720" y2="198"/><line x1="-300" y1="234" x2="720" y2="234"/><line x1="-300" y1="270" x2="720" y2="270"/><line x1="-300" y1="306" x2="720" y2="306"/><line x1="-300" y1="342" x2="720" y2="342"/><line x1="-300" y1="378" x2="720" y2="378"/><line x1="-300" y1="414" x2="720" y2="414"/><line x1="-300" y1="450" x2="720" y2="450"/><line x1="-300" y1="486" x2="720" y2="486"/><line x1="-300" y1="522" x2="720" y2="522"/><line x1="-300" y1="558" x2="720" y2="558"/><line x1="-300" y1="594" x2="720" y2="594"/><line x1="-300" y1="630" x2="720" y2="630"/><line x1="-300" y1="666" x2="720" y2="666"/><line x1="-300" y1="702" x2="720" y2="702"/><line x1="-300" y1="738" x2="720" y2="738"/><line x1="-300" y1="774" x2="720" y2="774"/><line x1="-300" y1="810" x2="720" y2="810"/><line x1="-300" y1="846" x2="720" y2="846"/></g><g clip-path="url(#landClip)" stroke="#c6d8e4" stroke-width="4" fill="none" stroke-linecap="round"><path d="M602,-220 C596,-120 590,-50 585,0 C575,120 555,240 540,340 C528,410 520,450 505,520"/><path d="M-300,10 C-160,20 -60,30 40,40 C160,70 300,80 430,95"/><path d="M430,95 C450,180 445,270 440,340"/><path d="M440,340 C520,345 590,340 645,332"/><path d="M-300,436 C-80,432 120,430 280,429 C380,429 470,431 560,432"/><path d="M142,-220 C152,-120 160,-60 170,0 C210,140 250,300 280,470 C295,545 305,590 315,640 C322,700 320,780 312,860"/><path d="M626,-220 C622,-140 620,-60 620,0 C640,110 655,210 660,300"/><path d="M505,520 C480,560 460,600 450,640 C438,700 424,760 410,860"/><path d="M-300,-64 C-80,-62 200,-60 560,-56"/><path d="M-300,700 C-60,706 140,716 300,740"/></g><g stroke="#dbe7ee" stroke-width="3.5" fill="none"><path d="M600,455 C640,470 690,490 728,510"/><path d="M612,420 C650,412 685,398 715,382"/><path d="M655,330 C685,322 705,310 722,296"/><path d="M690,-30 C720,-34 745,-40 764,-48"/></g><path d="M718,120 C730,180 728,250 724,310 C720,370 716,415 706,455 C702,470 692,470 690,455 C698,400 704,330 708,255 C711,200 712,155 718,120 Z" fill="#eaf0f2" stroke="#ffffff" stroke-width="1"/><path d="M752,-220 C760,-140 762,-60 756,10 C752,60 744,95 734,120 C728,132 720,128 722,114 C730,60 736,-20 738,-100 C739,-145 742,-185 746,-220 Z" fill="#eaf0f2" stroke="#ffffff" stroke-width="1"/><ellipse cx="735" cy="500" rx="18" ry="10" fill="#eaf0f2"/><path d="M742,540 C766,538 780,556 774,576 C768,596 744,602 730,590 C718,580 722,552 742,540 Z" fill="#eaf0f2"/><path d="M840,660 C856,690 862,730 856,770 C852,792 840,794 836,772 C830,732 830,694 840,660 Z" fill="#bfe4cd"/><path d="M700,690 C716,720 720,752 714,790 C710,808 700,808 698,790 C694,754 694,720 700,690 Z" fill="#bfe4cd"/><g><rect x="562" y="81" width="26" height="18" rx="4" fill="#4a6fa5"/><text x="575" y="94" text-anchor="middle" font-size="10" font-weight="700" fill="#fff">95</text></g><g><rect x="539" y="261" width="26" height="18" rx="4" fill="#4a6fa5"/><text x="552" y="274" text-anchor="middle" font-size="10" font-weight="700" fill="#fff">95</text></g><g><rect x="584" y="-139" width="26" height="18" rx="4" fill="#4a6fa5"/><text x="597" y="-126" text-anchor="middle" font-size="10" font-weight="700" fill="#fff">95</text></g><g><rect x="107" y="43" width="26" height="18" rx="4" fill="#4a6fa5"/><text x="120" y="56" text-anchor="middle" font-size="10" font-weight="700" fill="#fff">75</text></g><g><rect x="-133" y="5" width="26" height="18" rx="4" fill="#4a6fa5"/><text x="-120" y="18" text-anchor="middle" font-size="10" font-weight="700" fill="#fff">75</text></g><g><rect x="419" y="141" width="26" height="18" rx="4" fill="#4a6fa5"/><text x="432" y="154" text-anchor="middle" font-size="10" font-weight="700" fill="#fff">826</text></g><g><rect x="425" y="291" width="26" height="18" rx="4" fill="#4a6fa5"/><text x="438" y="304" text-anchor="middle" font-size="10" font-weight="700" fill="#fff">826</text></g><g><rect x="287" y="421" width="26" height="18" rx="4" fill="#4a6fa5"/><text x="300" y="434" text-anchor="middle" font-size="10" font-weight="700" fill="#fff">836</text></g><g><rect x="-53" y="425" width="26" height="18" rx="4" fill="#4a6fa5"/><text x="-40" y="438" text-anchor="middle" font-size="10" font-weight="700" fill="#fff">836</text></g><g><rect x="217" y="231" width="26" height="18" rx="4" fill="#4a6fa5"/><text x="230" y="244" text-anchor="middle" font-size="10" font-weight="700" fill="#fff">997</text></g><g><rect x="477" y="226" width="26" height="18" rx="4" fill="#4a6fa5"/><text x="490" y="239" text-anchor="middle" font-size="10" font-weight="700" fill="#fff">924</text></g><g><rect x="137" y="-149" width="26" height="18" rx="4" fill="#4a6fa5"/><text x="150" y="-136" text-anchor="middle" font-size="10" font-weight="700" fill="#fff">91</text></g><g><rect x="197" y="-71" width="26" height="18" rx="4" fill="#4a6fa5"/><text x="210" y="-58" text-anchor="middle" font-size="10" font-weight="700" fill="#fff">595</text></g><g><rect x="303" y="751" width="26" height="18" rx="4" fill="#4a6fa5"/><text x="316" y="764" text-anchor="middle" font-size="10" font-weight="700" fill="#fff">1</text></g><text x="560" y="470" font-size="17" font-weight="600" fill="#4b5563">Miami</text><text x="575" y="110" font-size="14" font-weight="600" fill="#4b5563">Hollywood</text><text x="390" y="330" font-size="14" font-weight="600" fill="#4b5563">Hialeah</text><text x="365" y="560" font-size="13" font-weight="600" fill="#4b5563">Kendall</text><text x="540" y="-110" font-size="15" font-weight="600" fill="#4b5563">Fort Lauderdale</text><text x="360" y="-60" font-size="13" font-weight="600" fill="#4b5563">Davie</text><text x="420" y="760" font-size="13" font-weight="600" fill="#4b5563">Homestead</text><text x="410" y="20" font-size="10.5" font-weight="500" fill="#8b95a3">Cooper City</text><text x="320" y="42" font-size="10.5" font-weight="500" fill="#8b95a3">Southwest Ranches</text><text x="618" y="28" font-size="10.5" font-weight="500" fill="#8b95a3">Dania Beach</text><text x="395" y="100" font-size="10.5" font-weight="500" fill="#8b95a3">Pembroke Pines</text><text x="55" y="118" font-size="10.5" font-weight="500" fill="#8b95a3">Silverlakes</text><text x="330" y="140" font-size="10.5" font-weight="500" fill="#8b95a3">Miramar</text><text x="500" y="138" font-size="10.5" font-weight="500" fill="#8b95a3">West Park</text><text x="560" y="160" font-size="10.5" font-weight="500" fill="#8b95a3">Hallandale Beach</text><text x="590" y="182" font-size="10.5" font-weight="500" fill="#8b95a3">Aventura</text><text x="455" y="222" font-size="10.5" font-weight="500" fill="#8b95a3">Miami Gardens</text><text x="430" y="268" font-size="10.5" font-weight="500" fill="#8b95a3">Miami Lakes</text><text x="455" y="295" font-size="10.5" font-weight="500" fill="#8b95a3">Opa-locka</text><text x="500" y="255" font-size="10.5" font-weight="500" fill="#8b95a3">Biscayne Gardens</text><text x="548" y="300" font-size="10.5" font-weight="500" fill="#8b95a3">North Miami</text><text x="335" y="318" font-size="10.5" font-weight="500" fill="#8b95a3">Hialeah Gardens</text><text x="340" y="382" font-size="10.5" font-weight="500" fill="#8b95a3">Medley</text><text x="330" y="412" font-size="10.5" font-weight="500" fill="#8b95a3">Doral</text><text x="285" y="470" font-size="10.5" font-weight="500" fill="#8b95a3">Sweetwater</text><text x="285" y="498" font-size="10.5" font-weight="500" fill="#8b95a3">Tamiami</text><text x="478" y="498" font-size="10.5" font-weight="500" fill="#8b95a3">Coral Gables</text><text x="724" y="180" font-size="10.5" font-weight="500" fill="#8b95a3">Miami Beach</text><text x="700" y="512" font-size="10.5" font-weight="500" fill="#8b95a3">Virginia Key</text><text x="724" y="616" font-size="10.5" font-weight="500" fill="#8b95a3">Key Biscayne</text><text x="285" y="538" font-size="10.5" font-weight="500" fill="#8b95a3">Kendale Lakes</text><text x="240" y="562" font-size="10.5" font-weight="500" fill="#8b95a3">West End</text><text x="398" y="540" font-size="10.5" font-weight="500" fill="#8b95a3">South Miami</text><text x="378" y="592" font-size="10.5" font-weight="500" fill="#8b95a3">Pinecrest</text><text x="200" y="592" font-size="10.5" font-weight="500" fill="#8b95a3">The Hammocks</text><text x="240" y="632" font-size="10.5" font-weight="500" fill="#8b95a3">Country Walk</text><text x="390" y="632" font-size="10.5" font-weight="500" fill="#8b95a3">Palmetto Bay</text><text x="228" y="612" font-size="10.5" font-weight="500" fill="#8b95a3">Richmond West</text><text x="330" y="-160" font-size="10.5" font-weight="500" fill="#8b95a3">Plantation</text><text x="140" y="-100" font-size="10.5" font-weight="500" fill="#8b95a3">Weston</text><text x="250" y="-30" font-size="10.5" font-weight="500" fill="#8b95a3">Sunrise Ranches</text><text x="490" y="-40" font-size="10.5" font-weight="500" fill="#8b95a3">Hollywood Hills</text><text x="600" y="-60" font-size="10.5" font-weight="500" fill="#8b95a3">Port Everglades</text><text x="468" y="-170" font-size="10.5" font-weight="500" fill="#8b95a3">Oakland Park</text><text x="420" y="672" font-size="10.5" font-weight="500" fill="#8b95a3">Cutler Bay</text><text x="300" y="700" font-size="10.5" font-weight="500" fill="#8b95a3">Redland</text><text x="200" y="758" font-size="10.5" font-weight="500" fill="#8b95a3">Florida City</text><text x="756" y="-40" font-size="10.5" font-weight="500" fill="#8b95a3">Fort Lauderdale Beach</text><text x="355" y="438" font-size="10.5" font-weight="500" fill="#4a7fae">Miami International</text><text x="378" y="452" font-size="10.5" font-weight="500" fill="#4a7fae">Airport</text><text x="800" y="630" font-size="11" font-weight="500" fill="#5aa9b5">Biscayne Bay</text><text x="1030" y="300" font-size="13" font-weight="500" fill="#4f9fac">Atlantic Ocean</text><text x="-160" y="720" font-size="12" font-weight="500" fill="#63a37c">Everglades</text><text x="-148" y="736" font-size="12" font-weight="500" fill="#63a37c">National Park</text><text x="830" y="810" font-size="11" font-weight="500" fill="#5aa9b5">Biscayne</text><text x="828" y="826" font-size="11" font-weight="500" fill="#5aa9b5">National Park</text><g class="map-pins"><g class="map-pin"><rect x="585.6" y="113" width="118.8" height="22" rx="11" fill="#111827"/><text x="645" y="128" text-anchor="middle" font-size="10.5" font-weight="700" fill="#fff">3 up to $67.5M</text></g><g class="map-pin"><rect x="611.4" y="137" width="61.2" height="22" rx="11" fill="#111827"/><text x="642" y="152" text-anchor="middle" font-size="10.5" font-weight="700" fill="#fff">$40.0M</text></g><g class="map-pin"><rect x="584.8" y="196" width="104.4" height="22" rx="11" fill="#111827"/><text x="637" y="211" text-anchor="middle" font-size="10.5" font-weight="700" fill="#fff">2 up to $75M</text></g><g class="map-pin"><rect x="614.4" y="222" width="61.2" height="22" rx="11" fill="#111827"/><text x="645" y="237" text-anchor="middle" font-size="10.5" font-weight="700" fill="#fff">$31.5M</text></g><g class="map-pin"><rect x="585.6" y="247" width="118.8" height="22" rx="11" fill="#111827"/><text x="645" y="262" text-anchor="middle" font-size="10.5" font-weight="700" fill="#fff">2 up to $49.9M</text></g><g class="map-pin"><rect x="412.6" y="243" width="46.8" height="22" rx="11" fill="#111827"/><text x="436" y="258" text-anchor="middle" font-size="10.5" font-weight="700" fill="#fff">$45M</text></g><g class="map-pin"><rect x="535.4" y="253" width="61.2" height="22" rx="11" fill="#111827"/><text x="566" y="268" text-anchor="middle" font-size="10.5" font-weight="700" fill="#fff">$31.5M</text></g><g class="map-pin"><rect x="612.4" y="271" width="61.2" height="22" rx="11" fill="#111827"/><text x="643" y="286" text-anchor="middle" font-size="10.5" font-weight="700" fill="#fff">$39.9M</text></g><g class="map-pin"><rect x="619.6" y="293" width="46.8" height="22" rx="11" fill="#111827"/><text x="643" y="308" text-anchor="middle" font-size="10.5" font-weight="700" fill="#fff">$37M</text></g><g class="map-pin"><rect x="587.0" y="315" width="54.0" height="22" rx="11" fill="#111827"/><text x="614" y="330" text-anchor="middle" font-size="10.5" font-weight="700" fill="#fff">$100M</text></g><g class="map-pin"><rect x="585.0" y="333" width="54.0" height="22" rx="11" fill="#111827"/><text x="612" y="348" text-anchor="middle" font-size="10.5" font-weight="700" fill="#fff">$110M</text></g><g class="map-pin"><rect x="566.6" y="347" width="46.8" height="22" rx="11" fill="#111827"/><text x="590" y="362" text-anchor="middle" font-size="10.5" font-weight="700" fill="#fff">$35M</text></g><g class="map-pin"><rect x="500.8" y="367" width="104.4" height="22" rx="11" fill="#111827"/><text x="553" y="382" text-anchor="middle" font-size="10.5" font-weight="700" fill="#fff">2 up to $50M</text></g><g class="map-pin"><rect x="559.8" y="383" width="104.4" height="22" rx="11" fill="#111827"/><text x="612" y="398" text-anchor="middle" font-size="10.5" font-weight="700" fill="#fff">3 up to $57M</text></g><g class="map-pin"><rect x="500.0" y="401" width="54.0" height="22" rx="11" fill="#111827"/><text x="527" y="416" text-anchor="middle" font-size="10.5" font-weight="700" fill="#fff">$110M</text></g><g class="map-pin"><rect x="449.6" y="451" width="46.8" height="22" rx="11" fill="#111827"/><text x="473" y="466" text-anchor="middle" font-size="10.5" font-weight="700" fill="#fff">$40M</text></g><g class="map-pin"><rect x="426.6" y="479" width="46.8" height="22" rx="11" fill="#111827"/><text x="450" y="494" text-anchor="middle" font-size="10.5" font-weight="700" fill="#fff">$35M</text></g><g class="map-pin"><rect x="673.0" y="559" width="54.0" height="22" rx="11" fill="#111827"/><text x="700" y="574" text-anchor="middle" font-size="10.5" font-weight="700" fill="#fff">$237M</text></g><g class="map-pin"><rect x="616.6" y="-111" width="46.8" height="22" rx="11" fill="#111827"/><text x="640" y="-96" text-anchor="middle" font-size="10.5" font-weight="700" fill="#fff">$28M</text></g><g class="map-pin"><rect x="667.8" y="-161" width="104.4" height="22" rx="11" fill="#111827"/><text x="720" y="-146" text-anchor="middle" font-size="10.5" font-weight="700" fill="#fff">2 up to $46M</text></g><g class="map-pin"><rect x="349.4" y="-41" width="61.2" height="22" rx="11" fill="#111827"/><text x="380" y="-26" text-anchor="middle" font-size="10.5" font-weight="700" fill="#fff">$12.9M</text></g><g class="map-pin"><rect x="439.4" y="635" width="61.2" height="22" rx="11" fill="#111827"/><text x="470" y="650" text-anchor="middle" font-size="10.5" font-weight="700" fill="#fff">$18.5M</text></g><g class="map-pin"><rect x="313.0" y="639" width="54.0" height="22" rx="11" fill="#111827"/><text x="340" y="654" text-anchor="middle" font-size="10.5" font-weight="700" fill="#fff">$9.8M</text></g></g></g></svg>
+            <div class="portal__zoom">
+              <button class="portal__zoom-btn" type="button" data-map-zoom="in" aria-label="Zoom in">
+                <svg viewBox="0 0 14 14" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M7 1v12M1 7h12"/></svg>
+              </button>
+              <button class="portal__zoom-btn" type="button" data-map-zoom="out" aria-label="Zoom out">
+                <svg viewBox="0 0 14 14" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M1 7h12"/></svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ Details marquees ============ -->
+    <section class="stages">
+      <div class="stages__intro reveal">
+        <h2 class="stages__title">Every Detail,<br>Ready to Use</h2>
+        <p class="stages__copy">As soon as a listing is imported, Selly automatically organizes the information needed for professional marketing.</p>
+      </div>
+      <div class="stages__marquees reveal">
+        <div class="marquee">
+          <div class="marquee__track marquee__track--pills">
+            <span class="pill">MLS Number</span><span class="pill">Descriptions</span><span class="pill">Address Information</span><span class="pill">Listing Details</span><span class="pill">Property Images</span><span class="pill">Pricing</span><span class="pill">Property Features</span><span class="pill">Listing Status</span><span class="pill">Property Search</span>
+            <span class="pill" aria-hidden="true">MLS Number</span><span class="pill" aria-hidden="true">Descriptions</span><span class="pill" aria-hidden="true">Address Information</span><span class="pill" aria-hidden="true">Listing Details</span><span class="pill" aria-hidden="true">Property Images</span><span class="pill" aria-hidden="true">Pricing</span><span class="pill" aria-hidden="true">Property Features</span><span class="pill" aria-hidden="true">Listing Status</span><span class="pill" aria-hidden="true">Property Search</span>
+          </div>
+        </div>
+        <div class="marquee">
+          <div class="marquee__track marquee__track--pills marquee__track--reverse">
+            <span class="pill">Pricing</span><span class="pill">Property Features</span><span class="pill">Listing Status</span><span class="pill">Property Search</span><span class="pill">MLS Number</span><span class="pill">Descriptions</span><span class="pill">Address Information</span><span class="pill">Listing Details</span><span class="pill">Property Images</span>
+            <span class="pill" aria-hidden="true">Pricing</span><span class="pill" aria-hidden="true">Property Features</span><span class="pill" aria-hidden="true">Listing Status</span><span class="pill" aria-hidden="true">Property Search</span><span class="pill" aria-hidden="true">MLS Number</span><span class="pill" aria-hidden="true">Descriptions</span><span class="pill" aria-hidden="true">Address Information</span><span class="pill" aria-hidden="true">Listing Details</span><span class="pill" aria-hidden="true">Property Images</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ Benefits ============ -->
+    <section class="benefits">
+      <div class="benefits__intro reveal">
+        <h2 class="benefits__title">Eliminate<br>Repetitive Work</h2>
+        <p class="benefits__copy">Manual data entry introduces unnecessary delays and opportunities for error.</p>
+      </div>
+      <div class="benefits__grid reveal">
+        <article class="benefit-card">
+          <span class="benefit-card__icon">
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="8" width="13" height="13" rx="2"/><path d="M16 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h3"/></svg>
+          </span>
+          <h3 class="benefit-card__heading">No Duplicate Entry</h3>
+          <p class="benefit-card__copy">Enter listing information once and use it across every marketing channel.</p>
+        </article>
+        <article class="benefit-card">
+          <span class="benefit-card__icon">
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 4 5.5V11c0 5 3.4 9.3 8 10.5 4.6-1.2 8-5.5 8-10.5V5.5L12 2z"/><path d="m8.8 11.8 2.3 2.3 4.1-4.6"/></svg>
+          </span>
+          <h3 class="benefit-card__heading">Keep property info consistent.</h3>
+          <p class="benefit-card__copy">Maintain accurate property details across your website, email, and social media.</p>
+        </article>
+        <article class="benefit-card">
+          <span class="benefit-card__icon">
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 4 14h6l-1 8 9-12h-6l1-8z"/></svg>
+          </span>
+          <h3 class="benefit-card__heading">Faster Marketing</h3>
+          <p class="benefit-card__copy">Launch campaigns more quickly with automatically synchronized listing data.</p>
+        </article>
+        <article class="benefit-card">
+          <span class="benefit-card__icon">
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-2.6-6.4"/><path d="M21 3v5h-5"/></svg>
+          </span>
+          <h3 class="benefit-card__heading">Automatic Updates</h3>
+          <p class="benefit-card__copy">Changes made in your MLS are reflected throughout Selly automatically.</p>
+        </article>
+        <article class="benefit-card">
+          <span class="benefit-card__icon">
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16M4 12h10M4 19h7"/><path d="m17 16 2.5 2.5L24 14" transform="translate(-3 1) scale(0.9)"/></svg>
+          </span>
+          <h3 class="benefit-card__heading">Streamlined Workflow</h3>
+          <p class="benefit-card__copy">Reduce manual tasks and keep your marketing process organized and efficient.</p>
+        </article>
+        <article class="benefit-card">
+          <span class="benefit-card__icon">
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg>
+          </span>
+          <h3 class="benefit-card__heading">Always Up to Date</h3>
+          <p class="benefit-card__copy">Ensure every marketing asset reflects your latest property information.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- ============ FAQ ============ -->
+    <section class="faq faq--contact">
+      <div class="faq__intro reveal">
+        <h2 class="faq__title">Frequently<br>asked Questions</h2>
+        <p class="faq__copy">Answer to your question every step of the way</p>
+      </div>
+      <div class="faq__list reveal" id="faqList">
+        <div class="faq-item">
+          <button class="faq-item__toggle" type="button" aria-expanded="false">
+            <span class="faq-item__question">What is Trestle?</span>
+            <span class="faq-item__icon" aria-hidden="true"></span>
+          </button>
+          <div class="faq-item__answer"><p>Trestle is CoreLogic's listing data platform — the pipeline that delivers standardized MLS data. Selly connects to it once and your listings flow in automatically.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-item__toggle" type="button" aria-expanded="false">
+            <span class="faq-item__question">How do I connect my MLS?</span>
+            <span class="faq-item__icon" aria-hidden="true"></span>
+          </button>
+          <div class="faq-item__answer"><p>Enter your MLS ID during setup and Selly handles the rest. If your board requires a data agreement, we guide you through the approval step by step.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-item__toggle" type="button" aria-expanded="false">
+            <span class="faq-item__question">How quickly do listing changes appear?</span>
+            <span class="faq-item__icon" aria-hidden="true"></span>
+          </button>
+          <div class="faq-item__answer"><p>Listings sync continuously throughout the day. A price change or status update in your MLS is reflected across your website, emails, and social templates shortly after.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-item__toggle" type="button" aria-expanded="false">
+            <span class="faq-item__question">What listing details come through?</span>
+            <span class="faq-item__icon" aria-hidden="true"></span>
+          </button>
+          <div class="faq-item__answer"><p>Everything you market with: photos, price, address, beds, baths, square footage, descriptions, features, and listing status — organized and ready to use in every channel.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-item__toggle" type="button" aria-expanded="false">
+            <span class="faq-item__question">Do I still need to enter listings by hand?</span>
+            <span class="faq-item__icon" aria-hidden="true"></span>
+          </button>
+          <div class="faq-item__answer"><p>No. Once connected, your active listings import automatically. You can still add off-market or pocket listings manually whenever you need to.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ CTA + Footer ============ -->
+    <section class="cta" id="cta">
+      <img class="cta__image" src="assets/images/cta-house.jpg" alt="" width="1440" height="823" loading="lazy">
+      <div class="cta__content reveal">
+        <h2 class="cta__title">Connect Once. Market Everywhere.</h2>
+        <a class="btn" href="index.html#cta">Join Waitlist</a>
+      </div>
+      <footer class="footer">
+        <nav class="footer__links" aria-label="Legal">
+          <a href="contact.html">Contact</a>
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms</a>
+        </nav>
+        <a class="footer__logo" href="index.html" aria-label="Selly home">
+          <svg width="76" height="38" aria-hidden="true" viewBox="0 0 296.74 147.49" xmlns="http://www.w3.org/2000/svg">
+<path fill="currentColor" d="M105.09,104.96c-15.61,0-26.2-13.12-26.2-35.18v-2.36h48.58v-1.18c0-16.63-9.86-29.59-28.27-29.59-19.43,0-35.04,18.25-35.04,42.09,0,21.5,13.26,37.98,34,37.98,15.61,0,26.95-10.14,30.33-23.84l-.58-.3c-5.15,7.95-12.96,12.38-22.82,12.38ZM97.29,39.01c10.74,0,15.01,11.48,15.01,25.9h-33.26c1.32-14.12,7.95-25.9,18.25-25.9Z"/>
+<path fill="currentColor" d="M160.26,106.86V0h-.6l-25.6,7.07v.58l9.71,6.19v93.03c0,5.75-2.8,6.33-10.16,6.79v1.62h36.82v-1.62c-7.37-.46-10.16-1.04-10.16-6.79Z"/>
+<path fill="currentColor" d="M201.74,106.86V0h-.58l-24.7,7.07v.58l8.79,6.19v93.03c0,5.75-2.8,6.33-10.14,6.79v1.62h36.8v-1.62c-7.37-.46-10.16-1.04-10.16-6.79Z"/>
+<path fill="currentColor" d="M262.12,98.34l-19.15-49.62c-.58-1.62-.88-2.94-.88-4.11,0-3.39,3.24-4.57,10.6-5.01v-1.46h-37.1v1.46c5.45,1.04,6.77,2.51,8.98,7.23l30.61,69.62-2.94,7.07c-4.27,9.86-9.86,12.66-17.53,12.66-4.25,0-6.77-.9-9.41-1.62v5.43c1.18,4.57,5.73,7.51,10.44,7.51,8.09,0,12.66-6.17,17.37-18.11l24.03-62.71-1.8-4.62-13.24,36.28Z"/>
+<path fill="currentColor" d="M280.66,22.93c-5.28,13.25-2.84,10.81-16.08,16.08,13.25,5.28,10.81,2.84,16.08,16.08,5.28-13.25,2.84-10.81,16.08-16.08-13.25-5.28-10.81-2.84-16.08-16.08Z"/>
+<path fill="currentColor" d="M14.13,51.96c0-7.8,5.45-13.25,13.69-13.25,11.48,0,19.58,11.48,21.2,22.67h1.18v-18.55c-6.04-3.83-12.95-6.18-21.64-6.18-14.43,0-26.64,8.69-26.64,22.96,0,26.79,40.33,19.73,40.33,40.04,0,9.57-6.92,14.87-15.31,14.87-12.36,0-22.38-11.19-25.61-26.35H0l.88,21.35c5.74,4.27,15.6,7.21,25.32,7.21,16.63,0,28.85-9.57,28.85-24.29,0-27.53-40.92-19.58-40.92-40.48Z"/>
+</svg>
+        </a>
+        <p class="footer__copyright">© 2026 All Rights Reserved. Selly</p>
+      </footer>
+    </section>
+  </main>
+
+  <script src="assets/js/lenis.min.js"></script>
+  <script src="assets/js/main.js"></script>
+</body>
+</html>
